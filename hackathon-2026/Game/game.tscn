@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://bvlhv237h2qi4" path="res://Game/game.gd" id="1_bk3v5"]
 [ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
+[ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
 snake_cell_scene = ExtResource("2_7raqb")
+apple_regular_scene = ExtResource("3_jcm6v")
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 640.0
