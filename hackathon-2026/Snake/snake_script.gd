@@ -14,6 +14,7 @@ const input_directions := {
 }
 var move_dir: Vector2
 var can_move: bool
+var just_ate: bool
 
 #game data
 @onready var game = $".."
@@ -67,9 +68,12 @@ func move_snake() -> void:
 		new_position.y = game.grid_height-1
 	
 	#remove the last cell and add a new one to the front
-	snake.pop_back()
+	if not just_ate:
+		snake.pop_back()
+		snake_cells.pop_back().queue_free()
+	else:
+		just_ate = false
 	snake.push_front(new_position)
-	snake_cells.pop_back().queue_free()
 	add_cell(snake[0])
 	can_move = true
 
@@ -80,3 +84,6 @@ func add_cell(pos):
 	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.top_ui_height)
 	add_child(snake_cell)
 	snake_cells.push_front(snake_cell)
+
+func ate_apple() -> void:
+	just_ate = true;
