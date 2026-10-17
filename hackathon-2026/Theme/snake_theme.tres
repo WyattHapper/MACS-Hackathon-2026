@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://256tali8hvkb"]
 
-[ext_resource type="FontFile" uid="uid://k5wwvjtqhctt" path="res://ThaleahFat.ttf" id="1_5af7v"]
+[ext_resource type="FontFile" uid="uid://k5wwvjtqhctt" path="res://Theme/ThaleahFat.ttf" id="1_5af7v"]
 [ext_resource type="Texture2D" uid="uid://b10uw26wv48b3" path="res://MainMenu/button_background.png" id="1_mdf6g"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jrw53"]

@@ -13,12 +13,12 @@ config_version=5
 config/name="Hackathon-2026"
 run/main_scene="uid://lg2sp2qtnpiw"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Theme/icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
+window/size/viewport_width=650
+window/size/viewport_height=500
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
