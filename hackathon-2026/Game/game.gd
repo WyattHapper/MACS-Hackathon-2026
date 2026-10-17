@@ -38,14 +38,6 @@ func new_game():
 # Clears snake data and makes a new snake
 func make_snake():
 	snake.InitializeSnake()
-
-# Adds a cell to the snake
-func add_cell(pos):
-	# Adding new snake cell object to the array
-	var snake_cell = snake_cell_scene.instantiate()
-	snake_cell.position = (pos * cell_size) + Vector2(0, cell_size)
-	add_child(snake_cell)
-	snake.append(snake_cell)
 	
 func add_apple():
 	var apple = apple_regular_scene.instantiate()
