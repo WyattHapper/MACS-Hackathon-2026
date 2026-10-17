@@ -11,6 +11,9 @@ extends Node2D
 
 # Exporting snake cell variable to inspector for ease of use
 @export var snake_cell_scene: PackedScene
+@export var apple_regular_scene: PackedScene
+@export var grid_width: int = 12
+@export var grid_height: int = 8
 
 # General game variables
 var score: int
@@ -30,6 +33,7 @@ func new_game():
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
+	add_apple()
 
 # Clears snake data and makes a new snake
 func make_snake():
@@ -42,6 +46,11 @@ func add_cell(pos):
 	snake_cell.position = (pos * cell_size) + Vector2(0, cell_size)
 	add_child(snake_cell)
 	snake.append(snake_cell)
+	
+func add_apple():
+	var apple = apple_regular_scene.instantiate()
+	apple.position = (get_random_position() * cell_size) + Vector2(0, cell_size)
+	add_child(apple)
 
 # Built in function to process stuff continually
 func _process(_delta):
@@ -54,4 +63,10 @@ func start_game():
 
 # Connected to timer node so every time it hits the set time it calls this
 func _on_timer_timeout() -> void:
-	snake.move_snake()
+	can_move = true
+	move_snake()
+
+func get_random_position() -> Vector2:
+	var random_x = randi_range(0, grid_width - 1)
+	var random_y = randi_range(0, grid_height -1)
+	return Vector2(random_x, random_y)
