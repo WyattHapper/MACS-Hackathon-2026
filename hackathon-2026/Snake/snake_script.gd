@@ -16,7 +16,7 @@ var move_dir: Vector2
 var can_move: bool
 
 #game data
-@onready var game = $Game
+@onready var game = $".."
 
 # Exporting snake cell variable to inspector for ease of use
 @export var snake_cell_scene: PackedScene
@@ -27,7 +27,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_input()
 
 
@@ -36,7 +36,9 @@ func InitializeSnake():
 	can_move = true
 	snake.clear()
 	for i in range(3):
-		snake.push_back(start_pos + Vector2(0, i))
+		snake.push_front(start_pos + Vector2(0, 2-i))
+		add_cell(snake[0])
+	print("Snake Initialized")
 
 # Handles user input
 func handle_input() -> void:
@@ -49,10 +51,9 @@ func handle_input() -> void:
 		if Input.is_action_just_pressed(action) and new_dir != -move_dir and new_dir != move_dir:
 			move_dir = new_dir
 			can_move = false
+			return
 
 func move_snake() -> void:
-	# Copies the current step data into last step and moves the head data
-	#last_step_data = current_step_data.duplicate()
 	var new_position = snake[0] + move_dir
 	
 	# Wrap snake to other side
@@ -64,20 +65,14 @@ func move_snake() -> void:
 		new_position.y = 0
 	elif new_position.y < 0:
 		new_position.y = game.grid_size
-
-	# Moves all of the data to be one square ahead
-	#for i in range(1, current_step_data.size()):
-		#current_step_data[i] = last_step_data[i - 1]
-
-	# Moves the actual snake cell objects one square ahead
-	#for i in snake.size():
-		#snake[i].position = (current_step_data[i] * cell_size) + Vector2(0, cell_size)
 	
-	#Previous code not needed, remove the last cell and add a new one to the front
+	print(%"Moving To: s{new_position}")
+	#remove the last cell and add a new one to the front
 	snake.pop_back()
 	snake.push_front(new_position)
 	snake_cells.pop_back()
 	add_cell(snake[0])
+	can_move = true
 
 # Adds a cell to the snake
 func add_cell(pos):

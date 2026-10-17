@@ -37,7 +37,7 @@ func new_game():
 
 # Clears snake data and makes a new snake
 func make_snake():
-	snake.Initialize()
+	snake.InitializeSnake()
 
 # Adds a cell to the snake
 func add_cell(pos):
@@ -63,8 +63,9 @@ func start_game():
 
 # Connected to timer node so every time it hits the set time it calls this
 func _on_timer_timeout() -> void:
-	can_move = true
-	move_snake()
+	#can_move = true
+	print("Moving Snake")
+	snake.move_snake()
 
 func get_random_position() -> Vector2:
 	var random_x = randi_range(0, grid_width - 1)
