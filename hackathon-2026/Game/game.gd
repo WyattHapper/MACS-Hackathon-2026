@@ -34,6 +34,7 @@ func new_game():
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
 	add_apple()
+	start_game()
 
 # Clears snake data and makes a new snake
 func make_snake():

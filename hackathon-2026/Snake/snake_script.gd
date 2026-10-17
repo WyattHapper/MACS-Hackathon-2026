@@ -70,7 +70,7 @@ func move_snake() -> void:
 	#remove the last cell and add a new one to the front
 	snake.pop_back()
 	snake.push_front(new_position)
-	snake_cells.pop_back()
+	snake_cells.pop_back().queue_free()
 	add_cell(snake[0])
 	can_move = true
 
