@@ -1,37 +1,50 @@
 extends Node2D
 
-# Variables
+# TO DO
+# Make a proper grid with walls
+# Make snake be able to grow and collide with itself
+# Input buffer?
 
+# VARIABLES
+
+# Exporting snake cell variable to inspector for ease of use
 @export var snake_cell_scene: PackedScene
 
+# General game variables
 var score: int
 var game_started: bool = false
 var grid_size: int = 20
 var cell_size: int = 50
 
+# Snake data
 var last_step_data: Array
 var current_step_data: Array
 var snake: Array
 
+# Snake movement
 var start_pos = Vector2(0,0)
-var up = Vector2(0, -1)
-var down = Vector2(0, 1)
-var left = Vector2(-1, 0)
-var right = Vector2(1, 0)
+const input_directions := {
+	"move_up": Vector2.UP,
+	"move_down": Vector2.DOWN,
+	"move_left": Vector2.LEFT,
+	"move_right": Vector2.RIGHT,
+}
 var move_dir: Vector2
 var can_move: bool
 
+# Built in function to run on start
 func _ready():
 	new_game()
 
+# Resets score, move_dir, can_move, and makes the snake
 func new_game():
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
-	move_dir = up
+	move_dir = Vector2.UP
 	can_move = true
-	print("Make")
 	make_snake()
-	
+
+# Clears snake data and makes a new snake
 func make_snake():
 	last_step_data.clear()
 	current_step_data.clear()
@@ -40,50 +53,53 @@ func make_snake():
 	for i in range(3):
 		add_cell(start_pos + Vector2(0, i))
 
+# Adds a cell to the snake
 func add_cell(pos):
 	current_step_data.append(pos)
+	# Adding new snake cell object to the array
 	var snake_cell = snake_cell_scene.instantiate()
 	snake_cell.position = (pos * cell_size) + Vector2(0, cell_size)
 	add_child(snake_cell)
 	snake.append(snake_cell)
 
+# Built in function to process stuff continually
 func _process(_delta):
-	move_snake()
-	
-func move_snake():
-	if can_move:
-		if Input.is_action_just_pressed("move_down") and move_dir != up:
-			move_dir = down
-			can_move = false
-			if not game_started:
-				start_game()
-		if Input.is_action_just_pressed("move_up") and move_dir != down:
-			move_dir = up
-			can_move = false
-			if not game_started:
-				start_game()
-		if Input.is_action_just_pressed("move_left") and move_dir != right:
-			move_dir = left
-			can_move = false
-			if not game_started:
-				start_game()
-		if Input.is_action_just_pressed("move_right") and move_dir != left:
-			move_dir = right
+	handle_input()
+
+# Handles user input
+func handle_input() -> void:
+	if not can_move:
+		return
+
+	for action in input_directions:
+		# Goes through "move_up", "move_down" etc and checks if its pressed
+		var new_dir: Vector2 = input_directions[action]
+		if Input.is_action_just_pressed(action) and new_dir != -move_dir:
+			move_dir = new_dir
 			can_move = false
 			if not game_started:
 				start_game()
 
+# Moves the snake
+func move_snake() -> void:
+	# Copies the current step data into last step and moves the head data
+	last_step_data = current_step_data.duplicate()
+	current_step_data[0] += move_dir
+
+	# Moves all of the data to be one square ahead
+	for i in range(1, current_step_data.size()):
+		current_step_data[i] = last_step_data[i - 1]
+
+	# Moves the actual snake cell objects one square ahead
+	for i in snake.size():
+		snake[i].position = (current_step_data[i] * cell_size) + Vector2(0, cell_size)
+
+# If the game starts then start the timer and other stuff
 func start_game():
 	game_started = true
 	$Timer.start()
 
+# Connected to timer node so every time it hits the set time it calls this
 func _on_timer_timeout() -> void:
 	can_move = true
-	
-	last_step_data = [] + current_step_data
-	current_step_data[0] += move_dir
-	for i in range(len(current_step_data)):
-		if i > 0:
-			current_step_data[i] = last_step_data[i - 1]
-		snake[i].position = (current_step_data[i] * cell_size) + Vector2(0, cell_size)
-			
+	move_snake()
