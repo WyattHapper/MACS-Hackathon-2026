@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://fjvabs66t8xh"]
 
-[ext_resource type="Texture2D" uid="uid://dhww8ftvt1qsp" path="res://apple.png" id="1_7svth"]
+[ext_resource type="Texture2D" uid="uid://dhww8ftvt1qsp" path="res://Apples/apple.png" id="1_7svth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4ihk"]
 size = Vector2(50, 50)
