@@ -14,6 +14,7 @@ const input_directions := {
 }
 var move_dir: Vector2
 var can_move: bool
+var just_ate: bool
 
 #game data
 @onready var game = $".."
@@ -57,20 +58,22 @@ func move_snake() -> void:
 	var new_position = snake[0] + move_dir
 	
 	# Wrap snake to other side
-	if new_position.x > game.grid_size:
+	if new_position.x >= game.grid_width:
 		new_position.x = 0
 	elif new_position.x < 0:
-		new_position.x = game.grid_size
-	if new_position.y > game.grid_size:
+		new_position.x = game.grid_width-1
+	if new_position.y >= game.grid_height:
 		new_position.y = 0
 	elif new_position.y < 0:
-		new_position.y = game.grid_size
+		new_position.y = game.grid_height-1
 	
-	print(%"Moving To: s{new_position}")
 	#remove the last cell and add a new one to the front
-	snake.pop_back()
+	if not just_ate:
+		snake.pop_back()
+		snake_cells.pop_back().queue_free()
+	else:
+		just_ate = false
 	snake.push_front(new_position)
-	snake_cells.pop_back().queue_free()
 	add_cell(snake[0])
 	can_move = true
 
@@ -78,7 +81,7 @@ func move_snake() -> void:
 func add_cell(pos):
 	# Adding new snake cell object to the array
 	var snake_cell = snake_cell_scene.instantiate()
-	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.cell_size)
+	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.top_ui_height)
 	add_child(snake_cell)
 	
 	if snake_cells.size() > 1:
@@ -86,3 +89,6 @@ func add_cell(pos):
 	
 	snake_cell.get_node("Area2D").add_to_group("snake_head")
 	snake_cells.push_front(snake_cell)
+
+func ate_apple() -> void:
+	just_ate = true;

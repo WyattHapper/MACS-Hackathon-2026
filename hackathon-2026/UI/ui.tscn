@@ -6,7 +6,7 @@
 
 [node name="Panel" type="Panel" parent="." unique_id=373702076]
 modulate = Color(1.9618617, 5.7564473, 10.5787325, 1)
-offset_right = 650.0
+offset_right = 800.0
 offset_bottom = 40.0
 
 [node name="Score" type="Label" parent="." unique_id=1006899445]
