@@ -1,3 +1,20 @@
 [gd_scene format=3 uid="uid://bbru5n5e2g1m1"]
 
+[ext_resource type="Script" uid="uid://bvlhv237h2qi4" path="res://Game/game.gd" id="1_bk3v5"]
+[ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
+[ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
+
 [node name="Game" type="Node2D" unique_id=872899055]
+script = ExtResource("1_bk3v5")
+snake_cell_scene = ExtResource("2_7raqb")
+
+[node name="Panel" type="Panel" parent="." unique_id=540144919]
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="UI" parent="." unique_id=96781642 instance=ExtResource("2_1r4le")]
+
+[node name="Timer" type="Timer" parent="." unique_id=628841116]
+wait_time = 0.2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
