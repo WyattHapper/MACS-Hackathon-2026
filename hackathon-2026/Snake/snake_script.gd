@@ -14,7 +14,7 @@ const input_directions := {
 }
 var move_dir: Vector2
 var can_move: bool
-var just_ate: bool
+var just_ate: bool # determines if the tail should move or grow
 
 #game data
 @onready var game = $".."
