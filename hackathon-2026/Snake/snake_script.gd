@@ -80,4 +80,9 @@ func add_cell(pos):
 	var snake_cell = snake_cell_scene.instantiate()
 	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.cell_size)
 	add_child(snake_cell)
+	
+	if snake_cells.size() > 1:
+		snake_cells[0].remove_from_group("snake_head")
+	
+	snake_cell.get_node("Area2D").add_to_group("snake_head")
 	snake_cells.push_front(snake_cell)

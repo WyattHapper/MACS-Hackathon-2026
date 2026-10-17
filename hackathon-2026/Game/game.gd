@@ -43,7 +43,14 @@ func make_snake():
 func add_apple():
 	var apple = apple_regular_scene.instantiate()
 	apple.position = (get_random_position() * cell_size) + Vector2(0, cell_size)
+	apple.eaten.connect(_on_apple_eaten)
 	add_child(apple)
+
+func _on_apple_eaten():
+	score += 1
+	$UI.get_node("Score").text = "Score: " + str(score)
+	add_apple()
+	snake.add_cell(snake.snake[0])
 
 # Built in function to process stuff continually
 func _process(_delta):
