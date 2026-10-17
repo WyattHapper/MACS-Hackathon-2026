@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://lg2sp2qtnpiw"]
 
 [ext_resource type="Script" uid="uid://b6xuggf1ahikr" path="res://MainMenu/main_menu.gd" id="1_nhkf3"]
-[ext_resource type="Texture2D" uid="uid://b10uw26wv48b3" path="res://MainMenu/button_background.png" id="2_3w4mj"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5de1l"]
-texture = ExtResource("2_3w4mj")
+[ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://snake_theme.tres" id="2_3w4mj"]
 
 [node name="Main Menu" type="Control" unique_id=1497900963]
 layout_mode = 3
@@ -22,7 +19,7 @@ offset_left = 182.5
 offset_top = 70.0
 offset_right = 457.5
 offset_bottom = 135.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_5de1l")
+theme = ExtResource("2_3w4mj")
 text = "Start"
 
 [node name="Settings Button" type="Button" parent="Control" unique_id=1654204579]
@@ -31,6 +28,7 @@ offset_left = 182.5
 offset_top = 200.0
 offset_right = 457.5
 offset_bottom = 265.0
+theme = ExtResource("2_3w4mj")
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="Control" unique_id=1755264777]
@@ -39,6 +37,7 @@ offset_left = 182.5
 offset_top = 330.0
 offset_right = 457.5
 offset_bottom = 395.0
+theme = ExtResource("2_3w4mj")
 text = "Quit"
 
 [connection signal="pressed" from="Control/Start Button" to="." method="_on_start_button_pressed"]
