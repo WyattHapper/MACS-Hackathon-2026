@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dog0erham8idu" path="res://Snake/snake_area.gd" id="1_64tlk"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
+bg_color = Color(18.892157, 18.892157, 18.892157, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mygop"]
 size = Vector2(48, 48)
 
@@ -14,6 +17,7 @@ script = ExtResource("1_64tlk")
 [node name="Panel" type="Panel" parent="SnakeArea" unique_id=1107111646]
 offset_right = 48.0
 offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_64tlk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SnakeArea" unique_id=1910471029]
 position = Vector2(24, 24)

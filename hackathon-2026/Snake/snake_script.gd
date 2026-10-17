@@ -84,12 +84,14 @@ func add_cell(pos):
 	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.top_ui_height)
 	add_child(snake_cell)
 	
-	if snake_cells.size() > 1:
-		snake_cells[0].remove_from_group("snake_head")
+	if snake_cells.size() > 0:
+		snake_cells[0].get_node("SnakeArea").remove_from_group("snake_head")
+		snake_cells[0].get_node("SnakeArea").get_node("Panel").modulate = Color.GREEN
 	
 	snake_cell.get_node("SnakeArea").add_to_group("snake_head")
 	snake_cell.get_node("SnakeArea").add_to_group("snake")
 	snake_cell.get_node("SnakeArea").snake_collide.connect(_on_snake_collide)
+	snake_cell.get_node("SnakeArea").get_node("Panel").modulate = Color.RED
 	snake_cells.push_front(snake_cell)
 
 func _on_snake_collide():
