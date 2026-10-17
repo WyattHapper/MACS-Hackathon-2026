@@ -10,32 +10,32 @@ script = ExtResource("1_nhkf3")
 
 [node name="Control" type="Control" parent="." unique_id=1971470459]
 anchors_preset = 0
-offset_right = 40.0
+offset_right = 40.00001
 offset_bottom = 40.0
 
 [node name="Start Button" type="Button" parent="Control" unique_id=1483774150]
 layout_mode = 0
-offset_left = 182.5
+offset_left = 262.5
 offset_top = 70.0
-offset_right = 457.5
+offset_right = 537.5
 offset_bottom = 135.0
 theme = ExtResource("2_3w4mj")
 text = "Start"
 
 [node name="Settings Button" type="Button" parent="Control" unique_id=1654204579]
 layout_mode = 0
-offset_left = 182.5
+offset_left = 262.5
 offset_top = 200.0
-offset_right = 457.5
+offset_right = 537.5
 offset_bottom = 265.0
 theme = ExtResource("2_3w4mj")
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="Control" unique_id=1755264777]
 layout_mode = 0
-offset_left = 182.5
+offset_left = 262.5
 offset_top = 330.0
-offset_right = 457.5
+offset_right = 537.5
 offset_bottom = 395.0
 theme = ExtResource("2_3w4mj")
 text = "Quit"

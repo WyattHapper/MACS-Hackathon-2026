@@ -10,7 +10,6 @@ extends Node2D
 # VARIABLES
 
 # Exporting snake cell variable to inspector for ease of use
-@export var snake_cell_scene: PackedScene
 @export var apple_regular_scene: PackedScene
 @export var grid_width: int = 12
 @export var grid_height: int = 8
@@ -18,8 +17,8 @@ extends Node2D
 # General game variables
 var score: int
 var game_started: bool = false
-@export var grid_size: int = 20
 @export var cell_size: int = 50
+@export var top_ui_height: int = 40
 
 #Snake reference
 @onready var snake = $Snake
@@ -42,7 +41,7 @@ func make_snake():
 	
 func add_apple():
 	var apple = apple_regular_scene.instantiate()
-	apple.position = (get_random_position() * cell_size) + Vector2(0, cell_size)
+	apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
 	add_child(apple)
 
 # Built in function to process stuff continually

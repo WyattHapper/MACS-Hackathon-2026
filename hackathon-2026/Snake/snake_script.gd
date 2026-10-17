@@ -57,16 +57,15 @@ func move_snake() -> void:
 	var new_position = snake[0] + move_dir
 	
 	# Wrap snake to other side
-	if new_position.x > game.grid_size:
+	if new_position.x >= game.grid_width:
 		new_position.x = 0
 	elif new_position.x < 0:
-		new_position.x = game.grid_size
-	if new_position.y > game.grid_size:
+		new_position.x = game.grid_width-1
+	if new_position.y >= game.grid_height:
 		new_position.y = 0
 	elif new_position.y < 0:
-		new_position.y = game.grid_size
+		new_position.y = game.grid_height-1
 	
-	print(%"Moving To: s{new_position}")
 	#remove the last cell and add a new one to the front
 	snake.pop_back()
 	snake.push_front(new_position)
@@ -78,6 +77,6 @@ func move_snake() -> void:
 func add_cell(pos):
 	# Adding new snake cell object to the array
 	var snake_cell = snake_cell_scene.instantiate()
-	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.cell_size)
+	snake_cell.position = (pos * game.cell_size) + Vector2(0, game.top_ui_height)
 	add_child(snake_cell)
 	snake_cells.push_front(snake_cell)

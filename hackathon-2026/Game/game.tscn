@@ -8,12 +8,13 @@
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
-snake_cell_scene = ExtResource("2_7raqb")
 apple_regular_scene = ExtResource("3_jcm6v")
+grid_width = 16
+grid_height = 10
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
-offset_right = 640.0
-offset_bottom = 480.0
+offset_right = 800.0
+offset_bottom = 540.0
 
 [node name="UI" parent="." unique_id=96781642 instance=ExtResource("2_1r4le")]
 
