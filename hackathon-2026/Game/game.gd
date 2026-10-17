@@ -11,8 +11,8 @@ extends Node2D
 
 # Exporting snake cell variable to inspector for ease of use
 @export var apple_regular_scene: PackedScene
-@export var grid_width: int = 12
-@export var grid_height: int = 8
+@export var grid_width: int = 16
+@export var grid_height: int = 10
 
 # General game variables
 var score: int

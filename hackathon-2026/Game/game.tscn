@@ -9,8 +9,6 @@
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
 apple_regular_scene = ExtResource("3_jcm6v")
-grid_width = 16
-grid_height = 10
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 800.0

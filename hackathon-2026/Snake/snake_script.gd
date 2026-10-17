@@ -55,7 +55,7 @@ func handle_input() -> void:
 			return
 
 func move_snake() -> void:
-	var new_position = snake[0] + move_dir
+	var new_position:Vector2 = snake[0] + move_dir
 	
 	# Wrap snake to other side
 	if new_position.x >= game.grid_width:
