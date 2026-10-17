@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
 [ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
+[ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
@@ -18,5 +19,9 @@ offset_bottom = 480.0
 
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
+
+[node name="Snake" type="Node" parent="." unique_id=918601143]
+script = ExtResource("4_jcm6v")
+snake_cell_scene = ExtResource("2_7raqb")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
