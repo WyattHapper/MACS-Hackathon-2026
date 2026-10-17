@@ -88,7 +88,12 @@ func add_cell(pos):
 		snake_cells[0].remove_from_group("snake_head")
 	
 	snake_cell.get_node("Area2D").add_to_group("snake_head")
+	snake_cell.get_node("Area2D").add_to_group("snake")
+	snake_cell.snake_collide.connect(_on_snake_collide)
 	snake_cells.push_front(snake_cell)
+
+func _on_snake_collide():
+	pass
 
 func ate_apple() -> void:
 	just_ate = true;
