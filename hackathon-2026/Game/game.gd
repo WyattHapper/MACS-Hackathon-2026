@@ -12,6 +12,8 @@ var option2_stat: Modifier
 
 var xp: int = 0
 
+var pending_items: Array = []
+
 # Exporting snake cell variable to inspector for ease of use
 @export var brick_scene: PackedScene
 
@@ -68,6 +70,8 @@ func new_game():
 	for item in get_tree().get_nodes_in_group("item"):
 		item.queue_free()
 		
+	pending_items.clear()
+		
 	get_tree().paused = false
 	
 	game_over_menu.hide()
@@ -101,6 +105,8 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 		item.connect(collision_signal, Callable(snake, "_on_snake_collide"))
 	
 	item.add_to_group("item")
+	pending_items.append(item)
+	item.tree_entered.connect(func(): pending_items.erase(item))
 	add_child.call_deferred(item)
 
 func place_apple(apple):
@@ -117,7 +123,9 @@ func place_apple(apple):
 		
 		# Items
 		if flag:
-			for item in get_tree().get_nodes_in_group("item"):
+			for item in get_tree().get_nodes_in_group("item") + pending_items:
+				if item == apple:
+					continue
 				if apple.position == item.position:
 					flag = false
 					break
