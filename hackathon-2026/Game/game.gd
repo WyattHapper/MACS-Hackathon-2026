@@ -1,8 +1,6 @@
 extends Node2D
 
 # TO DO
-# Make a proper grid with walls
-# Make snake be able to grow and collide with itself
 # Input buffer?
 
 # Nathan - Cleaning up snake's code and moving it to separate snake_script
@@ -55,10 +53,10 @@ func add_apple():
 			if apple.position == cell.position:
 				flag = false
 				
-	apple.eaten.connect(_on_apple_eaten)
+	apple.eaten_regular.connect(_on_apple_eaten_regular)
 	add_child.call_deferred(apple)
 
-func _on_apple_eaten():
+func _on_apple_eaten_regular():
 	score += 1
 	$UI.get_node("Score").text = "Score: " + str(score)
 	add_apple()
@@ -66,7 +64,10 @@ func _on_apple_eaten():
 
 # Built in function to process stuff continually
 func _process(_delta):
-	pass
+	if Input.is_action_just_pressed("pause"):
+		game_started = false
+		get_tree().paused = true
+		game_over_menu.show()
 
 # If the game starts then start the timer and other stuff
 func start_game():
