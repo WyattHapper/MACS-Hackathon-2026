@@ -63,7 +63,7 @@ func _process(_delta):
 		get_tree().paused = true
 		pause_menu.show()
 	
-	if xp >= 2:
+	if xp >= 5:
 		options = modifier_manager.get_random_choices()
 		var option1 = options[0]
 		var option2 = options[1]
@@ -130,6 +130,7 @@ func add_bomb():
 	current_bomb = add_apple(bomb_scene, "", "snake_collide")
 	current_bomb.position = warning.position
 	warning.queue_free()
+	$Explosion.play()
 	bomb_timer.start()
 
 func place_apple(apple):
