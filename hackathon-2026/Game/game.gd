@@ -16,6 +16,9 @@ var pending_items: Array = []
 
 # Exporting snake cell variable to inspector for ease of use
 @export var brick_scene: PackedScene
+@export var bomb_scene: PackedScene
+
+var current_bomb: Node = null
 
 @export var apple_regular_scene: PackedScene
 @export var apple_poison_scene: PackedScene
@@ -28,6 +31,7 @@ var pending_items: Array = []
 
 # set base speed
 @onready var timer = $Timer
+@onready var bomb_timer = $BombTimer
 
 # General game variables
 var score: int
@@ -47,10 +51,6 @@ var extra_growth: int = 0 # variable for extra growth modifier
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var pause_menu: Control = $PauseMenu
 @onready var select_menu: Control = $SelectMenu
-
-
-# explosion hazards
-@export var hazard_scene: PackedScene
 
 ### BUILT INS
 # Built in function to run on start
@@ -113,7 +113,13 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 	pending_items.append(item)
 	item.tree_entered.connect(func(): pending_items.erase(item))
 	add_child.call_deferred(item)
+	return item
 
+func add_bomb():
+	if is_instance_valid(current_bomb):
+		current_bomb.queue_free()
+	current_bomb = add_apple(bomb_scene, "", "snake_collide")
+	bomb_timer.start()
 
 func place_apple(apple):
 	var flag = false #loops until it finds a position thats not inside the snake
@@ -215,6 +221,11 @@ func _on_timer_timeout() -> void:
 	#can_move = true
 	snake.move_snake()
 
+func _on_bomb_timer_timeout() -> void:
+	if is_instance_valid(current_bomb):
+		current_bomb.queue_free()
+	current_bomb = null
+
 # If the game starts then start the timer and other stuff
 func start_game():
 	game_started = true
@@ -226,6 +237,8 @@ func game_over():
 	game_over_menu.show()
 
 func on_level_up(option1: Modifier, option2: Modifier) -> void:
+	add_bomb()
+	
 	option1_stat = option1
 	option2_stat = option2
 

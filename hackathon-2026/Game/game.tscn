@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
 [ext_resource type="PackedScene" uid="uid://bqdjybiy7rg5c" path="res://Brick/brick.tscn" id="2_fsxsm"]
+[ext_resource type="PackedScene" uid="uid://gpcbr0vbjhrt" path="res://Brick/bomb.tscn" id="3_07gdo"]
 [ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dk7y855eqgl62" path="res://Apples/apple_poison.tscn" id="3_oomkl"]
 [ext_resource type="PackedScene" uid="uid://bcvxepqdbiyoe" path="res://Apples/apple_rain.tscn" id="4_buohc"]
@@ -84,6 +85,7 @@ bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
 brick_scene = ExtResource("2_fsxsm")
+bomb_scene = ExtResource("3_07gdo")
 apple_regular_scene = ExtResource("3_jcm6v")
 apple_poison_scene = ExtResource("3_oomkl")
 apple_rain_scene = ExtResource("4_buohc")
@@ -177,7 +179,6 @@ text = "Quit"
 
 [node name="PauseMenu" type="Control" parent="." unique_id=952514968]
 process_mode = 3
-visible = false
 z_index = 5
 layout_mode = 3
 anchors_preset = 8
@@ -319,6 +320,10 @@ wait_time = 0.2
 [node name="EatSound" type="AudioStreamPlayer2D" parent="." unique_id=71958152]
 stream = ExtResource("22_4w5h0")
 
+[node name="BombTimer" type="Timer" parent="." unique_id=852532783]
+wait_time = 1.75
+one_shot = true
+
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="PauseMenu/Resume Button" to="." method="_on_resume_button_pressed"]
@@ -326,3 +331,4 @@ stream = ExtResource("22_4w5h0")
 [connection signal="pressed" from="SelectMenu/Option1 Button" to="." method="_on_option_1_button_pressed"]
 [connection signal="pressed" from="SelectMenu/Option2 Button" to="." method="_on_option_2_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]

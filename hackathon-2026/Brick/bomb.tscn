@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://gpcbr0vbjhrt"]
+
+[ext_resource type="Script" uid="uid://capsmyk22cxd7" path="res://Brick/bomb.gd" id="1_tx1j5"]
+[ext_resource type="Texture2D" uid="uid://cqpwjehced24n" path="res://Brick/explosion.png" id="2_eskrq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fn8o"]
+size = Vector2(75.53125, 102.578125)
+
+[node name="Bomb" type="Area2D" unique_id=1353951235]
+script = ExtResource("1_tx1j5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=285356992]
+position = Vector2(63, 63)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_eskrq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=95679286]
+position = Vector2(63, 68)
+shape = SubResource("RectangleShape2D_4fn8o")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
