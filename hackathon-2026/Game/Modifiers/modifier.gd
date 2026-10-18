@@ -6,11 +6,11 @@ class_name Modifier
 
 # base interface for all modifiers
 
-func apply(game: Node) -> void:
+func apply(game: Node2D) -> void:
 	pass
 
-func remove(game: Node) -> void:
+func remove(game: Node2D) -> void:
 	pass
 
-func on_apple_eaten(game: Node) -> void:
+func on_apple_eaten(game: Node2D) -> void:
 	pass

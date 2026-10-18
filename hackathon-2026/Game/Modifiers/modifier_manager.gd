@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name ModifierManager
 
 # Assign your .tres modifier resources in the Inspector.
@@ -49,9 +49,10 @@ func activate_modifier(modifier: Modifier) -> void:
 
 
 # Tell every active modifier that a regular apple was eaten.
-func on_regular_apple_eaten() -> void:
+func _on_apple_eaten():
 	for modifier in active_modifiers.duplicate():
 		modifier.on_apple_eaten(game)
+
 
 
 # Remove every active modifier and reset the run.
