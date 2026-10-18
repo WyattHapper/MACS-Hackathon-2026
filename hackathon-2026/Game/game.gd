@@ -103,24 +103,33 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 	item.add_to_group("item")
 	add_child.call_deferred(item)
 
-func place_apple(apple):
-	var flag = false #loops until it finds a position thats not inside the snake
-	while (!flag):
-		flag = true
-		apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
-		
-		# Snake cells
-		for cell in snake.snake_cells:
-			if apple.position == cell.position:
-				flag = false
-				break
-		
-		# Items
-		if flag:
-			for item in get_tree().get_nodes_in_group("item"):
-				if apple.position == item.position:
-					flag = false
+func place_apple(apple: Node2D) -> void:
+	var available_positions: Array[Vector2] = []
+
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var pos = Vector2(x, y) * cell_size + Vector2(0, top_ui_height)
+			var occupied = false
+			
+			for cell in snake.snake_cells: # need to use for loop to access positions
+				if pos == cell.position:
+					occupied = true
 					break
+
+			if not occupied:
+				for item in get_tree().get_nodes_in_group("item"):
+					if item != apple and pos == item.position:
+						occupied = true
+						break
+
+			if not occupied:
+				available_positions.append(pos)
+
+	if available_positions.is_empty():
+		push_warning("No free grid positions available for item placement.")
+		return
+
+	apple.position = available_positions.pick_random()
 
 func _on_apple_eaten_regular():
 	update_score(1)
@@ -260,5 +269,28 @@ func _decrease_snake_speed() ->void:
 	timer.wait_time += 0.025
 
 func _shuffle() -> void:
-	for item in get_tree().get_nodes_in_group("item"):
-		place_apple(item)
+	var available_positions: Array[Vector2] = []
+
+	# Collect every grid position that isn't occupied by the snake.
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var pos = Vector2(x, y) * cell_size + Vector2(0, top_ui_height)
+
+			var occupied = false
+
+			for cell in snake.snake_cells:
+				if pos == cell.position:
+					occupied = true
+					break
+
+			if not occupied:
+				available_positions.append(pos)
+
+	# Randomize the order of available positions.
+	available_positions.shuffle()
+
+	# Move each item to a unique available position.
+	var items = get_tree().get_nodes_in_group("item")
+
+	for i in range(min(items.size(), available_positions.size())):
+		items[i].position = available_positions[i]
