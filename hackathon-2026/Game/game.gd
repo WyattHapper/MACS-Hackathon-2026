@@ -126,6 +126,7 @@ func _on_apple_eaten_regular():
 	elif randf() < 0.25:
 		add_rain_apple()
 	snake.ate_regular_apple()
+	snake.reverse_snake()
 
 func _on_apple_eaten_poison():
 	score -= 1

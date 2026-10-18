@@ -106,6 +106,25 @@ func add_cell(pos):
 func _on_snake_collide():
 	game.game_over()
 
+func reverse_snake() -> void:
+	# Change the tail to the head and vice versa
+	snake_cells[0].get_node("SnakeArea").remove_from_group("snake_head")
+	snake_cells[0].get_node("SnakeArea").get_node("Panel").modulate = Color.GREEN
+	snake_cells[-1].get_node("SnakeArea").add_to_group("snake_head")
+	snake_cells[-1].get_node("SnakeArea").get_node("Panel").modulate = Color.RED
+	# Reverse Snake
+	snake.reverse()
+	snake_cells.reverse()
+	move_dir = _wrap_direction(snake[0], snake[1]) # Position difference to determine move direction
+
+func _wrap_direction(head: Vector2, neck: Vector2) -> Vector2:
+	var d = head - neck
+	if d.x > 1: d.x = -1
+	elif d.x < -1: d.x = 1
+	elif d.y > 1: d.y = -1
+	elif d.y < -1: d.y = 1
+	return d
+
 func ate_regular_apple() -> void:
 	just_ate_regular = true
 
