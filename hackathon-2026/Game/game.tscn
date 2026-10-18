@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://cepf7djocjiww" path="res://Game/Modifiers/multiply_score.gd" id="15_qyr8x"]
 [ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
 [ext_resource type="Script" uid="uid://bepxvlf5ga6fk" path="res://Game/Modifiers/tail_cut.gd" id="16_ss60k"]
+[ext_resource type="Script" uid="uid://dgou78yupfwgs" path="res://Game/Modifiers/screen_size.gd" id="17_2cxdh"]
 
 [sub_resource type="Resource" id="Resource_qlwvw"]
 script = ExtResource("13_qlwvw")
@@ -56,6 +57,11 @@ script = ExtResource("16_ss60k")
 modifier_name = "Tail Cut"
 metadata/_custom_type_script = "uid://bepxvlf5ga6fk"
 
+[sub_resource type="Resource" id="Resource_ss60k"]
+script = ExtResource("17_2cxdh")
+modifier_name = "Screen Size"
+metadata/_custom_type_script = "uid://dgou78yupfwgs"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
 bg_color = Color(0, 0.35686275, 0, 1)
 
@@ -74,11 +80,11 @@ apple_reverse_scene = ExtResource("6_7gi1t")
 [node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
 script = ExtResource("10_7gi1t")
 available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw"), SubResource("Resource_33n3b")])
-repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh"), SubResource("Resource_ss60k")])
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
-offset_right = 800.0
-offset_bottom = 540.0
+offset_right = 3045.0
+offset_bottom = 2024.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_64tlk")
 
 [node name="Snake" type="Node" parent="." unique_id=918601143]
