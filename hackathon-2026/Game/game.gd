@@ -109,24 +109,7 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 	item.tree_entered.connect(func(): pending_items.erase(item))
 	add_child.call_deferred(item)
 
-func place_apple(apple: Node2D) -> void:
-	var available_positions: Array[Vector2] = []
 
-	for x in range(grid_width):
-		for y in range(grid_height):
-			var pos = Vector2(x, y) * cell_size + Vector2(0, top_ui_height)
-			var occupied = false
-			
-			for cell in snake.snake_cells: # need to use for loop to access positions
-				if pos == cell.position:
-					occupied = true
-					break
-
-			if not occupied:
-				for item in get_tree().get_nodes_in_group("item"):
-					if item != apple and pos == item.position:
-						occupied = true
-						break
 func place_apple(apple):
 	var flag = false #loops until it finds a position thats not inside the snake
 	while (!flag):
@@ -147,15 +130,6 @@ func place_apple(apple):
 				if apple.position == item.position:
 					flag = false
 					break
-
-			if not occupied:
-				available_positions.append(pos)
-
-	if available_positions.is_empty():
-		push_warning("No free grid positions available for item placement.")
-		return
-
-	apple.position = available_positions.pick_random()
 
 func _on_apple_eaten_regular():
 	update_score(1)

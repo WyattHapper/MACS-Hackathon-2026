@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://bbausae78n1b4"
 
 [sub_resource type="Resource" id="Resource_33n3b"]
 script = ExtResource("11_rxmp4")
+modifier_name = "Shuffle"
 metadata/_custom_type_script = "uid://b3w0hectmp7ys"
 
 [sub_resource type="Resource" id="Resource_qyr8x"]
