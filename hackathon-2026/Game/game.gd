@@ -7,8 +7,11 @@ extends Node2D
 
 ### VARIABLES
 
+var options = ["Speed Up", "Speed Down"]
 var option1_stat
 var option2_stat
+
+var xp: int = 0
 
 # Exporting snake cell variable to inspector for ease of use
 @export var brick_scene: PackedScene
@@ -46,6 +49,12 @@ func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = true
 		pause_menu.show()
+	
+	if xp == 10:
+		options.shuffle()
+		var option1 = options[0]
+		var option2 = options[1]
+		on_level_up(option1, option2)
 
 ### GAME START
 # Resets score, move_dir, can_move, and makes the snake
@@ -60,6 +69,7 @@ func new_game():
 	select_menu.hide()
 	
 	score = 0
+	xp = 0
 	update_score(0)
 	make_snake()
 	
@@ -124,6 +134,7 @@ func _on_apple_eaten_regular():
 	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
 	
+	xp += 1
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_poison():
@@ -138,16 +149,21 @@ func _on_apple_eaten_rain():
 	else:
 		for i in range(3):
 			add_apple(apple_rain_child_scene, "eaten_rain_child")
-
+	
+	xp += 1
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_rain_child():
 	update_score(1)
+	
+	xp += 1
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_reverse():
 	update_score(1)
 	snake.reverse_snake()
+	
+	xp += 1
 	snake.ate_regular_apple()
 
 func update_score(amount: int):
@@ -179,14 +195,18 @@ func game_over():
 func on_level_up(option1, option2):
 	pause_menu.get_node("Option1 Button").text = "" + str(option1)
 	pause_menu.get_node("Option2 Button").text = "" + str(option2)
-	option1_stat = 0
-	option2_stat = 0
+	option1_stat = option1
+	option2_stat = option2
+	
+	xp = 0
 	get_tree().paused = true
 	select_menu.show()
 	
 func level_stat(stat):
-	print(stat)
-	pass # Change stats here
+	if stat == "Speed Up":
+		pass
+	if stat == "Speed Down":
+		pass
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
