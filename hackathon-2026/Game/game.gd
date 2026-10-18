@@ -77,7 +77,8 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 
 	if collision_signal != "":
 		item.connect(collision_signal, Callable(snake, "_on_snake_collide"))
-
+	
+	item.add_to_group("item")
 	add_child.call_deferred(item)
 
 func place_apple(apple):
@@ -85,9 +86,19 @@ func place_apple(apple):
 	while (!flag):
 		flag = true
 		apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
+		
+		# Snake cells
 		for cell in snake.snake_cells:
 			if apple.position == cell.position:
 				flag = false
+				break
+		
+		# Items
+		if flag:
+			for item in get_tree().get_nodes_in_group("item"):
+				if apple.position == item.position:
+					flag = false
+					break
 
 func _on_apple_eaten_regular():
 	update_score(1)
