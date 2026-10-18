@@ -11,6 +11,8 @@ var option1_stat
 var option2_stat
 
 # Exporting snake cell variable to inspector for ease of use
+@export var brick_scene: PackedScene
+
 @export var apple_regular_scene: PackedScene
 @export var apple_poison_scene: PackedScene
 @export var apple_rain_scene: PackedScene
@@ -56,6 +58,9 @@ func new_game():
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
 	add_apple(apple_regular_scene, "eaten_regular")
+	
+	add_apple(brick_scene, "", "snake_collide")
+	
 	start_game()
 
 # Clears snake data and makes a new snake
@@ -63,11 +68,17 @@ func make_snake():
 	snake.InitializeSnake()
 
 ### APPLES
-func add_apple(apple_scene: PackedScene, eaten_signal: String):
-	var apple = apple_scene.instantiate()
-	place_apple(apple)
-	apple.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
-	add_child.call_deferred(apple)
+func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_signal: String = ""):
+	var item = apple_scene.instantiate()
+	place_apple(item)
+
+	if eaten_signal != "":
+		item.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
+
+	if collision_signal != "":
+		item.connect(collision_signal, Callable(snake, "_on_snake_collide"))
+
+	add_child.call_deferred(item)
 
 func place_apple(apple):
 	var flag = false #loops until it finds a position thats not inside the snake

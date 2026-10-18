@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bvlhv237h2qi4" path="res://Game/game.gd" id="1_bk3v5"]
 [ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
+[ext_resource type="PackedScene" uid="uid://bqdjybiy7rg5c" path="res://Brick/brick.tscn" id="2_fsxsm"]
 [ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dk7y855eqgl62" path="res://Apples/apple_poison.tscn" id="3_oomkl"]
 [ext_resource type="PackedScene" uid="uid://bcvxepqdbiyoe" path="res://Apples/apple_rain.tscn" id="4_buohc"]
@@ -19,6 +20,7 @@ bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
+brick_scene = ExtResource("2_fsxsm")
 apple_regular_scene = ExtResource("3_jcm6v")
 apple_poison_scene = ExtResource("3_oomkl")
 apple_rain_scene = ExtResource("4_buohc")
