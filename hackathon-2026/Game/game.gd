@@ -61,6 +61,7 @@ func _on_apple_eaten_regular():
 	$UI.get_node("Score").text = "Score: " + str(score)
 	add_apple()
 	snake.ate_apple()
+	snake.reverse_snake()
 
 # Built in function to process stuff continually
 func _process(_delta):
