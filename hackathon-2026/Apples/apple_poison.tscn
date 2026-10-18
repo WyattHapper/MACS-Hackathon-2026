@@ -15,7 +15,7 @@ position = Vector2(23.5, 23.5)
 scale = Vector2(2.937, 2.937)
 texture = ExtResource("2_torko")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=337873927]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=337873927]
 position = Vector2(23.5, 23.5)
 shape = SubResource("RectangleShape2D_3k8fa")
 
