@@ -9,12 +9,24 @@
 [ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://bxn6tjk644jeg" path="res://Apples/apple_rain_child.tscn" id="5_kul4i"]
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
+[ext_resource type="Script" uid="uid://15kh14fmbwuo" path="res://Game/Modifiers/modifier_manager.gd" id="10_7gi1t"]
+[ext_resource type="Script" uid="uid://bvbe7vgwuypc3" path="res://Game/Modifiers/modifier.gd" id="11_72g0p"]
+[ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/speed_modifier.gd" id="12_4lqr4"]
+[ext_resource type="Script" uid="uid://bbausae78n1b4" path="res://Game/Modifiers/reverse_modifier.gd" id="13_qlwvw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
 bg_color = Color(0, 0.35686275, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygop"]
 bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
+
+[sub_resource type="Resource" id="Resource_7gi1t"]
+script = ExtResource("12_4lqr4")
+metadata/_custom_type_script = "uid://dhauhga8lybmo"
+
+[sub_resource type="Resource" id="Resource_fsxsm"]
+script = ExtResource("13_qlwvw")
+metadata/_custom_type_script = "uid://bbausae78n1b4"
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
@@ -243,6 +255,10 @@ text = "Option 2"
 
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
+
+[node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
+script = ExtResource("10_7gi1t")
+available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_7gi1t"), SubResource("Resource_fsxsm")])
 
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]

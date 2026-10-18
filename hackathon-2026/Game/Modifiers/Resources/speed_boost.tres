@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpeedModifier" format=3 uid="uid://crloyndxe5vkv"]
+
+[ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/speed_modifier.gd" id="1_um3m2"]
+
+[resource]
+script = ExtResource("1_um3m2")
+modifier_name = "Speed Boost"
+description = "Move 25% faster"
+metadata/_custom_type_script = "uid://dhauhga8lybmo"

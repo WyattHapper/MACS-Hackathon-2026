@@ -18,6 +18,13 @@ var option2_stat
 @export var grid_width: int = 16
 @export var grid_height: int = 10
 
+# variables to modify speed
+@export var speed_modifier: float = 1
+@export var base_move_interval: float = 0.3
+
+# set base speed
+@onready var timer = $Timer
+
 # General game variables
 var score: int
 var game_started: bool = false
@@ -27,6 +34,9 @@ var game_started: bool = false
 #Snake reference
 @onready var snake = $Snake
 
+#Modifiers reference
+@onready var modifier_manager: ModifierManager = $Modifiers/ModifierManager
+
 # End menu reference
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var pause_menu: Control = $PauseMenu
@@ -35,8 +45,10 @@ var game_started: bool = false
 ### BUILT INS
 # Built in function to run on start
 func _ready():
+	
 	new_game()
-
+	modifier_manager = ModifierManager.new()
+	modifier_manager.game = self
 # Built in function to process stuff continually
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
@@ -65,6 +77,7 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String):
 	var apple = apple_scene.instantiate()
 	place_apple(apple)
 	apple.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
+	
 	add_child.call_deferred(apple)
 
 func place_apple(apple):
@@ -79,6 +92,7 @@ func place_apple(apple):
 func _on_apple_eaten_regular():
 	update_score(1)
 	add_apple(apple_regular_scene, "eaten_regular")
+	modifier_manager._on_apple_eaten()
 	
 	var poison_spawned = false
 	
@@ -86,11 +100,10 @@ func _on_apple_eaten_regular():
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
 	
-	if not poison_spawned and randf() < 0.10:
+	if not poison_spawned and randf() < 0.90:
 		add_apple(apple_rain_scene, "eaten_rain")
 	
 	snake.ate_regular_apple()
-	snake.reverse_snake()
 
 func _on_apple_eaten_poison():
 	update_score(-1)
@@ -104,7 +117,7 @@ func _on_apple_eaten_rain():
 	else:
 		for i in range(3):
 			add_apple(apple_rain_child_scene, "eaten_rain_child")
-
+	modifier_manager._on_apple_eaten()
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_rain_child():
@@ -130,7 +143,7 @@ func _on_timer_timeout() -> void:
 # If the game starts then start the timer and other stuff
 func start_game():
 	game_started = true
-	$Timer.start()
+	timer.start()
 
 func game_over():
 	game_started = false
@@ -171,3 +184,6 @@ func _on_option_2_button_pressed() -> void:
 	level_stat(option2_stat)
 	get_tree().paused = false
 	select_menu.hide()
+	
+func _update_snake_speed() -> void:
+	timer.wait_time = base_move_interval / speed_modifier
