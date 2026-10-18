@@ -118,7 +118,18 @@ func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_si
 func add_bomb():
 	if is_instance_valid(current_bomb):
 		current_bomb.queue_free()
+
+	var warning = ColorRect.new()
+	warning.color = Color(1, 0, 0, 0.6)
+	warning.size = Vector2(cell_size, cell_size)
+	place_apple(warning)
+	add_child(warning)
+
+	await get_tree().create_timer(bomb_timer.wait_time, false).timeout
+
 	current_bomb = add_apple(bomb_scene, "", "snake_collide")
+	current_bomb.position = warning.position
+	warning.queue_free()
 	bomb_timer.start()
 
 func place_apple(apple):
@@ -251,7 +262,14 @@ func on_level_up(option1: Modifier, option2: Modifier) -> void:
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
-	print("test")
+	get_viewport().content_scale_size = Vector2i(
+		800, 540
+	)
+
+	# Increase the actual window size
+	DisplayServer.window_set_size(
+		Vector2i(800, 540)
+	)
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://MainMenu/main_menu.tscn")
 
