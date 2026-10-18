@@ -28,8 +28,9 @@ snake_cell_scene = ExtResource("2_7raqb")
 
 [node name="UI" parent="." unique_id=96781642 instance=ExtResource("2_1r4le")]
 
-[node name="PopupMenu" type="Control" parent="." unique_id=1010553746]
+[node name="GameOverMenu" type="Control" parent="." unique_id=1010553746]
 process_mode = 3
+visible = false
 z_index = 5
 layout_mode = 3
 anchors_preset = 8
@@ -45,14 +46,14 @@ grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
 
-[node name="Panel" type="Panel" parent="PopupMenu" unique_id=1216870899]
+[node name="Panel" type="Panel" parent="GameOverMenu" unique_id=1216870899]
 layout_mode = 0
 offset_top = 10.0
 offset_right = 400.0
 offset_bottom = 310.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
 
-[node name="Label" type="Label" parent="PopupMenu" unique_id=204704312]
+[node name="Label" type="Label" parent="GameOverMenu" unique_id=204704312]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -65,7 +66,7 @@ grow_horizontal = 2
 theme = ExtResource("6_qmv3x")
 text = "GAME OVER"
 
-[node name="Menu Button" type="Button" parent="PopupMenu" unique_id=916686887]
+[node name="Menu Button" type="Button" parent="GameOverMenu" unique_id=916686887]
 custom_minimum_size = Vector2(275, 65)
 layout_mode = 1
 anchors_preset = 5
@@ -79,7 +80,7 @@ grow_horizontal = 2
 theme = ExtResource("6_qmv3x")
 text = "Menu"
 
-[node name="Quit Button" type="Button" parent="PopupMenu" unique_id=1632824943]
+[node name="Quit Button" type="Button" parent="GameOverMenu" unique_id=1632824943]
 custom_minimum_size = Vector2(275, 65)
 layout_mode = 1
 anchors_preset = 7
@@ -96,9 +97,79 @@ grow_vertical = 0
 theme = ExtResource("6_qmv3x")
 text = "Quit"
 
+[node name="PauseMenu" type="Control" parent="." unique_id=952514968]
+process_mode = 3
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Panel" type="Panel" parent="PauseMenu" unique_id=1019802335]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
+
+[node name="Label" type="Label" parent="PauseMenu" unique_id=1161971754]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Paused"
+
+[node name="Resume Button" type="Button" parent="PauseMenu" unique_id=419100620]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 100.0
+offset_right = 137.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Resume"
+
+[node name="Menu Button" type="Button" parent="PauseMenu" unique_id=140308308]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -100.0
+offset_right = 137.5
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_qmv3x")
+text = "Menu"
+
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
 
-[connection signal="pressed" from="PopupMenu/Menu Button" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="PopupMenu/Quit Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Resume Button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

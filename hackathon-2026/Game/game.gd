@@ -22,7 +22,8 @@ var game_started: bool = false
 @onready var snake = $Snake
 
 # End menu reference
-@onready var game_over_menu: Control = $PopupMenu
+@onready var game_over_menu: Control = $GameOverMenu
+@onready var pause_menu: Control = $PauseMenu
 
 # Built in function to run on start
 func _ready():
@@ -35,14 +36,14 @@ func new_game():
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
-	add_apple()
+	add_regular_apple()
 	start_game()
 
 # Clears snake data and makes a new snake
 func make_snake():
 	snake.InitializeSnake()
 	
-func add_apple():
+func add_regular_apple():
 	var apple = apple_regular_scene.instantiate()
 	
 	var flag = false #loops until it finds a position thats not inside the snake
@@ -59,15 +60,14 @@ func add_apple():
 func _on_apple_eaten_regular():
 	score += 1
 	$UI.get_node("Score").text = "Score: " + str(score)
-	add_apple()
+	add_regular_apple()
 	snake.ate_apple()
 
 # Built in function to process stuff continually
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
-		game_started = false
 		get_tree().paused = true
-		game_over_menu.show()
+		pause_menu.show()
 
 # If the game starts then start the timer and other stuff
 func start_game():
@@ -99,3 +99,7 @@ func _on_menu_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_resume_button_pressed() -> void:
+	get_tree().paused = false
+	pause_menu.hide()
