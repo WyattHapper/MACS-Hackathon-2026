@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://5bgugc33od54" path="res://Game/Modifiers/extra_length.gd" id="18_17dmm"]
 [ext_resource type="Script" uid="uid://6wqbdb5by85v" path="res://Game/Modifiers/less_growth.gd" id="19_07gdo"]
 [ext_resource type="AudioStream" uid="uid://4rs25wldr5t" path="res://Apples/freesound_community-taco-crunch-108204.mp3" id="22_4w5h0"]
+[ext_resource type="AudioStream" uid="uid://oqdd1xminv42" path="res://Game/Modifiers/wings_of_freedom-bomb-explosion-469038.mp3" id="26_rlpku"]
 
 [sub_resource type="Resource" id="Resource_qlwvw"]
 script = ExtResource("13_qlwvw")
@@ -323,6 +324,9 @@ stream = ExtResource("22_4w5h0")
 [node name="BombTimer" type="Timer" parent="." unique_id=852532783]
 wait_time = 1.75
 one_shot = true
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=979054262]
+stream = ExtResource("26_rlpku")
 
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]

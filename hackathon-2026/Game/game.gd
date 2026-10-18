@@ -119,6 +119,7 @@ func add_bomb():
 	if is_instance_valid(current_bomb):
 		current_bomb.queue_free()
 	current_bomb = add_apple(bomb_scene, "", "snake_collide")
+	$Explosion.play()
 	bomb_timer.start()
 
 func place_apple(apple):
