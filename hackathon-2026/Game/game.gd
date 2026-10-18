@@ -92,13 +92,11 @@ func add_poison_apple():
 func _on_apple_eaten_regular():
 	score += 1
 	$UI.get_node("Score").text = "Score: " + str(score)
-	add_apple()
-	snake.ate_apple()
-	snake.reverse_snake()
 	add_regular_apple()
 	if randf() < 0.25:
 		add_poison_apple()
 	snake.ate_regular_apple()
+	snake.reverse_snake()
 
 func _on_apple_eaten_poison():
 	score -= 1
