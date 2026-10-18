@@ -56,7 +56,7 @@ func add_apple():
 				flag = false
 				
 	apple.eaten.connect(_on_apple_eaten)
-	add_child(apple)
+	add_child.call_deferred(apple)
 
 func _on_apple_eaten():
 	score += 1
