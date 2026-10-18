@@ -13,22 +13,36 @@
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
 [ext_resource type="Script" uid="uid://15kh14fmbwuo" path="res://Game/Modifiers/modifier_manager.gd" id="10_7gi1t"]
 [ext_resource type="Script" uid="uid://bvbe7vgwuypc3" path="res://Game/Modifiers/modifier.gd" id="11_72g0p"]
-[ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/speed_modifier.gd" id="12_4lqr4"]
+[ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/increase_speed.gd" id="12_4lqr4"]
+[ext_resource type="Script" uid="uid://b6dqpd1hht6qb" path="res://Game/Modifiers/decrease_speed.gd" id="13_33n3b"]
 [ext_resource type="Script" uid="uid://bbausae78n1b4" path="res://Game/Modifiers/reverse_modifier.gd" id="13_qlwvw"]
+[ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
+
+[sub_resource type="Resource" id="Resource_qlwvw"]
+script = ExtResource("13_qlwvw")
+modifier_name = "Reverse"
+metadata/_custom_type_script = "uid://bbausae78n1b4"
+
+[sub_resource type="Resource" id="Resource_33n3b"]
+script = ExtResource("12_4lqr4")
+modifier_name = "Speed Up"
+metadata/_custom_type_script = "uid://dhauhga8lybmo"
+
+[sub_resource type="Resource" id="Resource_rpdke"]
+script = ExtResource("15_rpdke")
+modifier_name = "Bonus Score"
+metadata/_custom_type_script = "uid://ccsfn3fuxcx5h"
+
+[sub_resource type="Resource" id="Resource_rxmp4"]
+script = ExtResource("13_33n3b")
+modifier_name = "Speed Down"
+metadata/_custom_type_script = "uid://b6dqpd1hht6qb"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
 bg_color = Color(0, 0.35686275, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygop"]
 bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
-
-[sub_resource type="Resource" id="Resource_qlwvw"]
-script = ExtResource("12_4lqr4")
-metadata/_custom_type_script = "uid://dhauhga8lybmo"
-
-[sub_resource type="Resource" id="Resource_rpdke"]
-script = ExtResource("13_qlwvw")
-metadata/_custom_type_script = "uid://bbausae78n1b4"
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
@@ -38,6 +52,11 @@ apple_poison_scene = ExtResource("3_oomkl")
 apple_rain_scene = ExtResource("4_buohc")
 apple_rain_child_scene = ExtResource("5_kul4i")
 apple_reverse_scene = ExtResource("6_7gi1t")
+
+[node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
+script = ExtResource("10_7gi1t")
+available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_33n3b"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4")])
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 800.0
@@ -259,10 +278,6 @@ text = "Option 2"
 
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
-
-[node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
-script = ExtResource("10_7gi1t")
-available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw"), SubResource("Resource_rpdke")])
 
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]

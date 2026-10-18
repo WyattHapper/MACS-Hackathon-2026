@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BonusScore" format=3 uid="uid://dnrjofimhuk4r"]
+
+[ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="1_1rv1r"]
+
+[resource]
+script = ExtResource("1_1rv1r")
+modifier_name = "Bonus Score"
+metadata/_custom_type_script = "uid://ccsfn3fuxcx5h"

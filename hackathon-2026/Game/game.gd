@@ -24,10 +24,6 @@ var xp: int = 0
 @export var grid_width: int = 16
 @export var grid_height: int = 10
 
-# variables to modify speed
-@export var speed_modifier: float = 1
-@export var base_move_interval: float = 0.3
-
 # set base speed
 @onready var timer = $Timer
 
@@ -139,9 +135,9 @@ func _on_apple_eaten_regular():
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
 
-	if not poison_spawned and randf() < 0.20:
-		add_apple(apple_reverse_scene, "eaten_reverse")
-		reverse_spawned = true
+	#if not poison_spawned and randf() < 0.20:
+	#	add_apple(apple_reverse_scene, "eaten_reverse")
+	#	reverse_spawned = true
 	
 	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
@@ -254,5 +250,10 @@ func _on_option_2_button_pressed() -> void:
 	get_tree().paused = false
 	select_menu.hide()
 	
-func _update_snake_speed() -> void:
-	timer.wait_time = base_move_interval / speed_modifier
+	
+#MODIFIER FUNCTIONS
+func _increase_snake_speed() -> void:
+	timer.wait_time -= 0.025
+
+func _decrease_snake_speed() ->void:
+	timer.wait_time += 0.025

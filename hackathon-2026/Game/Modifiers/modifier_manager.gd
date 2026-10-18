@@ -14,7 +14,6 @@ func initialize(game_controller: Node2D):
 
 # Pick two distinct modifiers that the player does not already have.
 func get_random_choices() -> Array[Modifier]:
-	print("Available modifiers: ", available_modifiers.size())
 	var choices: Array[Modifier] = []
 
 	# exclude already-active modifiers
