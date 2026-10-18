@@ -43,7 +43,6 @@ var game_started: bool = false
 
 #Modifiers reference
 @onready var modifier_manager: ModifierManager = $ModifierManager
-@onready var modifier_manager: ModifierManager = $ModifierManager
 
 # End menu reference
 @onready var game_over_menu: Control = $GameOverMenu
