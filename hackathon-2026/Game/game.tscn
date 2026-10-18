@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bcvxepqdbiyoe" path="res://Apples/apple_rain.tscn" id="4_buohc"]
 [ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://bxn6tjk644jeg" path="res://Apples/apple_rain_child.tscn" id="5_kul4i"]
+[ext_resource type="PackedScene" uid="uid://ne1qg0rdtjta" path="res://Apples/apple_reverse.tscn" id="6_7gi1t"]
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
@@ -22,6 +23,7 @@ apple_regular_scene = ExtResource("3_jcm6v")
 apple_poison_scene = ExtResource("3_oomkl")
 apple_rain_scene = ExtResource("4_buohc")
 apple_rain_child_scene = ExtResource("5_kul4i")
+apple_reverse_scene = ExtResource("6_7gi1t")
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 800.0

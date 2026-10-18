@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ne1qg0rdtjta"]
+
+[ext_resource type="Script" uid="uid://64jk8s1m0fkh" path="res://Apples/apple_reverse.gd" id="1_5muok"]
+[ext_resource type="Texture2D" uid="uid://dhww8ftvt1qsp" path="res://Apples/apple.png" id="2_45xwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imdvw"]
+size = Vector2(47, 47)
+
+[node name="AppleReserve" type="Area2D" unique_id=758734905]
+script = ExtResource("1_5muok")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1683997822]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(23.500004, 23.500002)
+scale = Vector2(2.9374998, 2.9374998)
+texture = ExtResource("2_45xwt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1738700091]
+position = Vector2(23.5, 23.5)
+shape = SubResource("RectangleShape2D_imdvw")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

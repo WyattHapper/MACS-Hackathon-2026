@@ -15,6 +15,8 @@ var option2_stat
 @export var apple_poison_scene: PackedScene
 @export var apple_rain_scene: PackedScene
 @export var apple_rain_child_scene: PackedScene
+@export var apple_reverse_scene: PackedScene
+
 @export var grid_width: int = 16
 @export var grid_height: int = 10
 
@@ -81,16 +83,20 @@ func _on_apple_eaten_regular():
 	add_apple(apple_regular_scene, "eaten_regular")
 	
 	var poison_spawned = false
+	var reverse_spawned = false
 	
 	if randf() < 0.20:
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
+
+	if not poison_spawned and randf() < 0.20:
+		add_apple(apple_reverse_scene, "eaten_reverse")
+		reverse_spawned = true
 	
-	if not poison_spawned and randf() < 0.10:
+	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
 	
 	snake.ate_regular_apple()
-	snake.reverse_snake()
 
 func _on_apple_eaten_poison():
 	update_score(-1)
@@ -109,6 +115,11 @@ func _on_apple_eaten_rain():
 
 func _on_apple_eaten_rain_child():
 	update_score(1)
+	snake.ate_regular_apple()
+
+func _on_apple_eaten_reverse():
+	update_score(1)
+	snake.reverse_snake()
 	snake.ate_regular_apple()
 
 func update_score(amount: int):
