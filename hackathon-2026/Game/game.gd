@@ -38,6 +38,7 @@ var game_started: bool = false
 
 #Snake reference
 @onready var snake = $Snake
+var extra_growth: int = 0 # variable for extra growth modifier
 
 #Modifiers reference
 @onready var modifier_manager: ModifierManager = $ModifierManager
@@ -157,7 +158,7 @@ func _on_apple_eaten_regular():
 		add_apple(brick_scene, "", "snake_collide")
 	
 	xp += 1
-	snake.ate_regular_apple()
+	snake.ate_regular_apple(1 + extra_growth)
 
 func _on_apple_eaten_poison():
 	update_score(-1)
@@ -173,20 +174,20 @@ func _on_apple_eaten_rain():
 			add_apple(apple_rain_child_scene, "eaten_rain_child")
 	
 	xp += 1
-	snake.ate_regular_apple()
+	snake.ate_regular_apple(extra_growth)
 
 func _on_apple_eaten_rain_child():
 	update_score(1)
 	
 	xp += 1
-	snake.ate_regular_apple()
+	snake.ate_regular_apple(extra_growth)
 
 func _on_apple_eaten_reverse():
 	update_score(1)
 	snake.reverse_snake()
 	
 	xp += 1
-	snake.ate_regular_apple()
+	snake.ate_regular_apple(extra_growth)
 
 func update_score(amount: int):
 	if amount > 0:
@@ -282,6 +283,10 @@ func _shuffle() -> void:
 				if pos == cell.position:
 					occupied = true
 					break
+			
+			for item in pending_items:
+				if pos == item.position:
+					occupied = true
 
 			if not occupied:
 				available_positions.append(pos)
@@ -294,3 +299,10 @@ func _shuffle() -> void:
 
 	for i in range(min(items.size(), available_positions.size())):
 		items[i].position = available_positions[i]
+
+func _extra_length() -> void:
+	extra_growth += 1
+
+func _less_length() -> void:
+	if extra_growth > 0:
+		extra_growth -= 1

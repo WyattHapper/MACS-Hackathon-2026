@@ -1,0 +1,300 @@
+[gd_scene format=3 uid="uid://bbru5n5e2g1m1"]
+
+[ext_resource type="Script" uid="uid://bvlhv237h2qi4" path="res://Game/game.gd" id="1_bk3v5"]
+[ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
+[ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
+[ext_resource type="PackedScene" uid="uid://bqdjybiy7rg5c" path="res://Brick/brick.tscn" id="2_fsxsm"]
+[ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
+[ext_resource type="PackedScene" uid="uid://dk7y855eqgl62" path="res://Apples/apple_poison.tscn" id="3_oomkl"]
+[ext_resource type="PackedScene" uid="uid://bcvxepqdbiyoe" path="res://Apples/apple_rain.tscn" id="4_buohc"]
+[ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
+[ext_resource type="PackedScene" uid="uid://bxn6tjk644jeg" path="res://Apples/apple_rain_child.tscn" id="5_kul4i"]
+[ext_resource type="PackedScene" uid="uid://ne1qg0rdtjta" path="res://Apples/apple_reverse.tscn" id="6_7gi1t"]
+[ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
+[ext_resource type="Script" uid="uid://15kh14fmbwuo" path="res://Game/Modifiers/modifier_manager.gd" id="10_7gi1t"]
+[ext_resource type="Script" uid="uid://bvbe7vgwuypc3" path="res://Game/Modifiers/modifier.gd" id="11_72g0p"]
+[ext_resource type="Script" uid="uid://b3w0hectmp7ys" path="res://Game/Modifiers/shuffle.gd" id="11_rxmp4"]
+[ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/increase_speed.gd" id="12_4lqr4"]
+[ext_resource type="Script" uid="uid://5bgugc33od54" path="res://Game/Modifiers/extra_length.gd" id="12_qyr8x"]
+[ext_resource type="Script" uid="uid://b6dqpd1hht6qb" path="res://Game/Modifiers/decrease_speed.gd" id="13_33n3b"]
+[ext_resource type="Script" uid="uid://bbausae78n1b4" path="res://Game/Modifiers/reverse_modifier.gd" id="13_qlwvw"]
+[ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
+
+[sub_resource type="Resource" id="Resource_qlwvw"]
+script = ExtResource("13_qlwvw")
+modifier_name = "Reverse"
+metadata/_custom_type_script = "uid://bbausae78n1b4"
+
+[sub_resource type="Resource" id="Resource_rxmp4"]
+script = ExtResource("11_rxmp4")
+modifier_name = "Shuffle"
+metadata/_custom_type_script = "uid://b3w0hectmp7ys"
+
+[sub_resource type="Resource" id="Resource_qyr8x"]
+script = ExtResource("12_qyr8x")
+modifier_name = "Longer"
+metadata/_custom_type_script = "uid://5bgugc33od54"
+
+[sub_resource type="Resource" id="Resource_rpdke"]
+script = ExtResource("15_rpdke")
+modifier_name = "Bonus Score"
+metadata/_custom_type_script = "uid://ccsfn3fuxcx5h"
+
+[sub_resource type="Resource" id="Resource_ss60k"]
+script = ExtResource("13_33n3b")
+modifier_name = "Speed Down"
+metadata/_custom_type_script = "uid://b6dqpd1hht6qb"
+
+[sub_resource type="Resource" id="Resource_2cxdh"]
+script = ExtResource("12_4lqr4")
+modifier_name = "Speed Up"
+metadata/_custom_type_script = "uid://dhauhga8lybmo"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
+bg_color = Color(0, 0.35686275, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygop"]
+bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
+
+[node name="Game" type="Node2D" unique_id=872899055]
+script = ExtResource("1_bk3v5")
+brick_scene = ExtResource("2_fsxsm")
+apple_regular_scene = ExtResource("3_jcm6v")
+apple_poison_scene = ExtResource("3_oomkl")
+apple_rain_scene = ExtResource("4_buohc")
+apple_rain_child_scene = ExtResource("5_kul4i")
+apple_reverse_scene = ExtResource("6_7gi1t")
+
+[node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
+script = ExtResource("10_7gi1t")
+available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw"), SubResource("Resource_rxmp4"), SubResource("Resource_qyr8x")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_rpdke"), SubResource("Resource_ss60k"), SubResource("Resource_2cxdh")])
+
+[node name="Panel" type="Panel" parent="." unique_id=540144919]
+offset_right = 800.0
+offset_bottom = 540.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_64tlk")
+
+[node name="Snake" type="Node" parent="." unique_id=918601143]
+script = ExtResource("4_jcm6v")
+snake_cell_scene = ExtResource("2_7raqb")
+
+[node name="UI" parent="." unique_id=96781642 instance=ExtResource("2_1r4le")]
+
+[node name="GameOverMenu" type="Control" parent="." unique_id=1010553746]
+process_mode = 3
+visible = false
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Panel" type="Panel" parent="GameOverMenu" unique_id=1216870899]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
+
+[node name="Label" type="Label" parent="GameOverMenu" unique_id=204704312]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.5
+offset_top = 30.0
+offset_right = 86.5
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "GAME OVER"
+
+[node name="Menu Button" type="Button" parent="GameOverMenu" unique_id=916686887]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 100.0
+offset_right = 137.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Menu"
+
+[node name="Quit Button" type="Button" parent="GameOverMenu" unique_id=1632824943]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -100.0
+offset_right = 137.5
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_qmv3x")
+text = "Quit"
+
+[node name="PauseMenu" type="Control" parent="." unique_id=952514968]
+process_mode = 3
+visible = false
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Panel" type="Panel" parent="PauseMenu" unique_id=1019802335]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
+
+[node name="Label" type="Label" parent="PauseMenu" unique_id=1161971754]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Paused"
+
+[node name="Resume Button" type="Button" parent="PauseMenu" unique_id=419100620]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 100.0
+offset_right = 137.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Resume"
+
+[node name="Menu Button" type="Button" parent="PauseMenu" unique_id=140308308]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -100.0
+offset_right = 137.5
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_qmv3x")
+text = "Menu"
+
+[node name="SelectMenu" type="Control" parent="." unique_id=1928684803]
+process_mode = 3
+visible = false
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Panel" type="Panel" parent="SelectMenu" unique_id=1219939181]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
+
+[node name="Label" type="Label" parent="SelectMenu" unique_id=1792117370]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Select an upgrade"
+
+[node name="Option1 Button" type="Button" parent="SelectMenu" unique_id=16215649]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 100.0
+offset_right = 137.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Option 1"
+
+[node name="Option2 Button" type="Button" parent="SelectMenu" unique_id=966884212]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -100.0
+offset_right = 137.5
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_qmv3x")
+text = "Option 2"
+
+[node name="Timer" type="Timer" parent="." unique_id=628841116]
+wait_time = 0.2
+
+[connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Resume Button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="SelectMenu/Option1 Button" to="." method="_on_option_1_button_pressed"]
+[connection signal="pressed" from="SelectMenu/Option2 Button" to="." method="_on_option_2_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

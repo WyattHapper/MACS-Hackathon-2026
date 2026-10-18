@@ -18,6 +18,7 @@ var move_dir: Vector2
 var can_move: bool
 var just_ate_regular: bool # determines if the tail should move or grow
 var just_ate_poison: bool # determines if the tail should move or grow
+var growth_pending: int # how much to increase length by
 
 #game data
 @onready var game = $".."
@@ -70,8 +71,8 @@ func move_snake() -> void:
 		new_position.y = game.grid_height-1
 	
 	#remove the last cell and add a new one to the front
-	if just_ate_regular:
-		just_ate_regular = false
+	if growth_pending > 0:
+		growth_pending -= 1
 	elif just_ate_poison:
 		remove_tail()
 		remove_tail()
@@ -127,8 +128,8 @@ func _wrap_direction(head: Vector2, neck: Vector2) -> Vector2:
 	elif d.y < -1: d.y = 1
 	return d
 
-func ate_regular_apple() -> void:
-	just_ate_regular = true
+func ate_regular_apple(growth) -> void:
+	growth_pending += growth
 
 func ate_poison_apple() -> void:
 	just_ate_poison = true
