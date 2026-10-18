@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://easklexiedsn" path="res://UI/ui.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
 [ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
+[ext_resource type="PackedScene" uid="uid://dk7y855eqgl62" path="res://Apples/apple_poison.tscn" id="3_oomkl"]
 [ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
 
@@ -16,6 +17,7 @@ bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
 apple_regular_scene = ExtResource("3_jcm6v")
+apple_poison_scene = ExtResource("3_oomkl")
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 800.0
