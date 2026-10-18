@@ -89,12 +89,12 @@ func _on_apple_eaten_regular():
 	add_regular_apple()
 	if randf() < 0.25:
 		add_poison_apple()
-	snake.ate_apple()
+	snake.ate_regular_apple()
 
 func _on_apple_eaten_poison():
 	score -= 1
 	$UI.get_node("Score").text = "Score: " + str(score)
-	snake.ate_apple()
+	snake.ate_poison_apple()
 
 func get_random_position() -> Vector2:
 	var random_x = randi_range(0, grid_width - 1)
