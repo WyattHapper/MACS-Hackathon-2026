@@ -192,7 +192,6 @@ func get_random_position() -> Vector2:
 # Connected to timer node so every time it hits the set time it calls this
 func _on_timer_timeout() -> void:
 	#can_move = true
-	print("Moving Snake")
 	snake.move_snake()
 
 # If the game starts then start the timer and other stuff
