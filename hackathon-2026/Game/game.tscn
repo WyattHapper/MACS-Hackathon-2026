@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
 [ext_resource type="Script" uid="uid://bepxvlf5ga6fk" path="res://Game/Modifiers/tail_cut.gd" id="16_ss60k"]
 [ext_resource type="Script" uid="uid://dgou78yupfwgs" path="res://Game/Modifiers/screen_size.gd" id="17_2cxdh"]
-[ext_resource type="Script" path="res://Game/Modifiers/extra_growth.gd" id="18_17dmm"]
+[ext_resource type="Script" uid="uid://5bgugc33od54" path="res://Game/Modifiers/extra_length.gd" id="18_17dmm"]
 [ext_resource type="Script" uid="uid://6wqbdb5by85v" path="res://Game/Modifiers/less_growth.gd" id="19_07gdo"]
 [ext_resource type="AudioStream" uid="uid://4rs25wldr5t" path="res://Apples/freesound_community-taco-crunch-108204.mp3" id="22_4w5h0"]
 
@@ -65,14 +65,14 @@ script = ExtResource("17_2cxdh")
 modifier_name = "Screen Size"
 metadata/_custom_type_script = "uid://dgou78yupfwgs"
 
-[sub_resource type="Resource" id="Resource_4w5h0"]
+[sub_resource type="Resource" id="Resource_07gdo"]
 script = ExtResource("18_17dmm")
-modifier_name = "Extra Growth"
-metadata/_custom_type_script = "uid://1wtr2b6dpnhe"
+modifier_name = "Extra Length"
+metadata/_custom_type_script = "uid://5bgugc33od54"
 
-[sub_resource type="Resource" id="Resource_vtcgr"]
+[sub_resource type="Resource" id="Resource_5s1fd"]
 script = ExtResource("19_07gdo")
-modifier_name = "Less Growth"
+modifier_name = "Less Length"
 metadata/_custom_type_script = "uid://6wqbdb5by85v"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
@@ -93,7 +93,7 @@ apple_reverse_scene = ExtResource("6_7gi1t")
 [node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
 script = ExtResource("10_7gi1t")
 available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw"), SubResource("Resource_33n3b")])
-repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh"), SubResource("Resource_ss60k"), SubResource("Resource_4w5h0"), SubResource("Resource_vtcgr")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh"), SubResource("Resource_ss60k"), SubResource("Resource_07gdo"), SubResource("Resource_5s1fd")])
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 3045.0

@@ -48,6 +48,10 @@ var extra_growth: int = 0 # variable for extra growth modifier
 @onready var pause_menu: Control = $PauseMenu
 @onready var select_menu: Control = $SelectMenu
 
+
+# explosion hazards
+@export var hazard_scene: PackedScene
+
 ### BUILT INS
 # Built in function to run on start
 func _ready():
