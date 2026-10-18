@@ -50,7 +50,7 @@ func _process(_delta):
 		get_tree().paused = true
 		pause_menu.show()
 	
-	if xp == 10:
+	if xp >= 10:
 		options.shuffle()
 		var option1 = options[0]
 		var option2 = options[1]
