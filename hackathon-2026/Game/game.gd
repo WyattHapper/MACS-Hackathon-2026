@@ -43,7 +43,6 @@ var game_started: bool = false
 
 #Modifiers reference
 @onready var modifier_manager: ModifierManager = $ModifierManager
-@onready var modifier_manager: ModifierManager = $ModifierManager
 
 # End menu reference
 @onready var game_over_menu: Control = $GameOverMenu
@@ -212,6 +211,10 @@ func game_over():
 	game_over_menu.show()
 
 func on_level_up(option1: Modifier, option2: Modifier) -> void:
+	print("Option 1: ", option1)
+	print("Option 1 name: ", option1.modifier_name)
+	print("Option 2: ", option2)
+	print("Option 2 name: ", option2.modifier_name)
 	option1_stat = option1
 	option2_stat = option2
 
