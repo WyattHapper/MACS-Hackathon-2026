@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
 [ext_resource type="Script" uid="uid://bepxvlf5ga6fk" path="res://Game/Modifiers/tail_cut.gd" id="16_ss60k"]
 [ext_resource type="Script" uid="uid://dgou78yupfwgs" path="res://Game/Modifiers/screen_size.gd" id="17_2cxdh"]
+[ext_resource type="AudioStream" uid="uid://4rs25wldr5t" path="res://Apples/freesound_community-taco-crunch-108204.mp3" id="22_4w5h0"]
 
 [sub_resource type="Resource" id="Resource_qlwvw"]
 script = ExtResource("13_qlwvw")
@@ -302,6 +303,9 @@ text = "Option 2"
 
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
+
+[node name="EatSound" type="AudioStreamPlayer2D" parent="." unique_id=71958152]
+stream = ExtResource("22_4w5h0")
 
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]

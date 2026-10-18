@@ -135,6 +135,7 @@ func _on_apple_eaten_regular():
 	update_score(1)
 	add_apple(apple_regular_scene, "eaten_regular")
 	modifier_manager._on_apple_eaten()
+	$EatSound.play()
 	
 	var poison_spawned = false
 	var reverse_spawned = false
