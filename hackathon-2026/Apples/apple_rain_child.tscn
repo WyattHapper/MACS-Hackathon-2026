@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bxn6tjk644jeg"]
+
+[ext_resource type="Texture2D" uid="uid://dhww8ftvt1qsp" path="res://Apples/apple.png" id="1_1e7jo"]
+[ext_resource type="Script" uid="uid://dmvjs7l5b7ela" path="res://Apples/apple_rain_child.gd" id="1_jy1us"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qubw4"]
+size = Vector2(47, 47)
+
+[node name="AppleRainChild" type="Area2D" unique_id=1498660068]
+script = ExtResource("1_jy1us")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1301206254]
+position = Vector2(23.500004, 23.500002)
+scale = Vector2(2.9374998, 2.9374998)
+texture = ExtResource("1_1e7jo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=51113933]
+position = Vector2(23.5, 23.5)
+shape = SubResource("RectangleShape2D_qubw4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
