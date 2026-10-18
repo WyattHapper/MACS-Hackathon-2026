@@ -33,6 +33,7 @@ var xp: int = 0
 
 # General game variables
 var score: int
+var score_multiply = 1
 var game_started: bool = false
 @export var cell_size: int = 50
 @export var top_ui_height: int = 40
@@ -41,6 +42,7 @@ var game_started: bool = false
 @onready var snake = $Snake
 
 #Modifiers reference
+@onready var modifier_manager: ModifierManager = $ModifierManager
 @onready var modifier_manager: ModifierManager = $ModifierManager
 
 # End menu reference
@@ -132,6 +134,7 @@ func _on_apple_eaten_regular():
 	
 	var poison_spawned = false
 	var reverse_spawned = false
+	var rain_spawned = false
 	
 	if randf() < 0.20:
 		add_apple(apple_poison_scene, "eaten_poison")
@@ -143,6 +146,10 @@ func _on_apple_eaten_regular():
 	
 	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
+		rain_spawned = true
+	
+	if not rain_spawned and randf() < 0.06:
+		add_apple(brick_scene, "", "snake_collide")
 	
 	xp += 1
 	snake.ate_regular_apple()
@@ -177,7 +184,10 @@ func _on_apple_eaten_reverse():
 	snake.ate_regular_apple()
 
 func update_score(amount: int):
-	score += amount
+	if amount > 0:
+		score += (amount * score_multiply)
+	else:
+		score += amount
 	$UI.get_node("Score").text = "Score: " + str(score)
 
 func get_random_position() -> Vector2:
@@ -189,7 +199,6 @@ func get_random_position() -> Vector2:
 # Connected to timer node so every time it hits the set time it calls this
 func _on_timer_timeout() -> void:
 	#can_move = true
-	print("Moving Snake")
 	snake.move_snake()
 
 # If the game starts then start the timer and other stuff
