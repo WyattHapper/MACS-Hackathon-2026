@@ -227,16 +227,6 @@ func on_level_up(option1: Modifier, option2: Modifier) -> void:
 	get_tree().paused = true
 	select_menu.show()
 
-func level_stat(stat):
-	if stat == "Speed Up":
-		timer.wait_time -= 0.05
-	if stat == "Speed Down":
-		timer.wait_time += 0.05
-	if stat == "Bonus Score":
-		update_score(10)
-	if stat == "Score Multiply":
-		score_multiply += 1
-
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
 	print("test")
