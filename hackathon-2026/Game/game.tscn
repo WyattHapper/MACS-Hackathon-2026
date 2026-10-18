@@ -15,32 +15,37 @@
 [ext_resource type="Script" uid="uid://bvbe7vgwuypc3" path="res://Game/Modifiers/modifier.gd" id="11_72g0p"]
 [ext_resource type="Script" uid="uid://b3w0hectmp7ys" path="res://Game/Modifiers/shuffle.gd" id="11_rxmp4"]
 [ext_resource type="Script" uid="uid://dhauhga8lybmo" path="res://Game/Modifiers/increase_speed.gd" id="12_4lqr4"]
-[ext_resource type="Script" uid="uid://5bgugc33od54" path="res://Game/Modifiers/extra_length.gd" id="12_qyr8x"]
 [ext_resource type="Script" uid="uid://b6dqpd1hht6qb" path="res://Game/Modifiers/decrease_speed.gd" id="13_33n3b"]
 [ext_resource type="Script" uid="uid://bbausae78n1b4" path="res://Game/Modifiers/reverse_modifier.gd" id="13_qlwvw"]
 [ext_resource type="Script" uid="uid://cepf7djocjiww" path="res://Game/Modifiers/multiply_score.gd" id="15_qyr8x"]
 [ext_resource type="Script" uid="uid://ccsfn3fuxcx5h" path="res://Game/Modifiers/bonus_score.gd" id="15_rpdke"]
 [ext_resource type="Script" uid="uid://bepxvlf5ga6fk" path="res://Game/Modifiers/tail_cut.gd" id="16_ss60k"]
 [ext_resource type="Script" uid="uid://dgou78yupfwgs" path="res://Game/Modifiers/screen_size.gd" id="17_2cxdh"]
+[ext_resource type="Script" path="res://Game/Modifiers/extra_growth.gd" id="18_17dmm"]
+[ext_resource type="Script" uid="uid://6wqbdb5by85v" path="res://Game/Modifiers/less_growth.gd" id="19_07gdo"]
 [ext_resource type="AudioStream" uid="uid://4rs25wldr5t" path="res://Apples/freesound_community-taco-crunch-108204.mp3" id="22_4w5h0"]
-[ext_resource type="Script" uid="uid://6wqbdb5by85v" path="res://Game/Modifiers/less_growth.gd" id="16_ss60k"]
 
 [sub_resource type="Resource" id="Resource_qlwvw"]
 script = ExtResource("13_qlwvw")
 modifier_name = "Reverse"
 metadata/_custom_type_script = "uid://bbausae78n1b4"
 
-[sub_resource type="Resource" id="Resource_rxmp4"]
+[sub_resource type="Resource" id="Resource_33n3b"]
 script = ExtResource("11_rxmp4")
 modifier_name = "Shuffle"
 metadata/_custom_type_script = "uid://b3w0hectmp7ys"
+
+[sub_resource type="Resource" id="Resource_qyr8x"]
+script = ExtResource("12_4lqr4")
+modifier_name = "Speed Up"
+metadata/_custom_type_script = "uid://dhauhga8lybmo"
 
 [sub_resource type="Resource" id="Resource_rpdke"]
 script = ExtResource("15_rpdke")
 modifier_name = "Bonus Score"
 metadata/_custom_type_script = "uid://ccsfn3fuxcx5h"
 
-[sub_resource type="Resource" id="Resource_ss60k"]
+[sub_resource type="Resource" id="Resource_rxmp4"]
 script = ExtResource("13_33n3b")
 modifier_name = "Speed Down"
 metadata/_custom_type_script = "uid://b6dqpd1hht6qb"
@@ -60,6 +65,16 @@ script = ExtResource("17_2cxdh")
 modifier_name = "Screen Size"
 metadata/_custom_type_script = "uid://dgou78yupfwgs"
 
+[sub_resource type="Resource" id="Resource_4w5h0"]
+script = ExtResource("18_17dmm")
+modifier_name = "Extra Growth"
+metadata/_custom_type_script = "uid://1wtr2b6dpnhe"
+
+[sub_resource type="Resource" id="Resource_vtcgr"]
+script = ExtResource("19_07gdo")
+modifier_name = "Less Growth"
+metadata/_custom_type_script = "uid://6wqbdb5by85v"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
 bg_color = Color(0, 0.35686275, 0, 1)
 
@@ -78,7 +93,7 @@ apple_reverse_scene = ExtResource("6_7gi1t")
 [node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
 script = ExtResource("10_7gi1t")
 available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw"), SubResource("Resource_33n3b")])
-repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh"), SubResource("Resource_ss60k")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qyr8x"), SubResource("Resource_rpdke"), SubResource("Resource_rxmp4"), SubResource("Resource_8hoao"), SubResource("Resource_2cxdh"), SubResource("Resource_ss60k"), SubResource("Resource_4w5h0"), SubResource("Resource_vtcgr")])
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 3045.0
