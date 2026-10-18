@@ -136,6 +136,7 @@ func _on_apple_eaten_regular():
 	update_score(1)
 	add_apple(apple_regular_scene, "eaten_regular")
 	modifier_manager._on_apple_eaten()
+	$EatSound.play()
 	
 	var poison_spawned = false
 	var reverse_spawned = false
@@ -145,10 +146,9 @@ func _on_apple_eaten_regular():
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
 
-	#disabled spawning reverse apples since its in modifiers
-	#if not poison_spawned and randf() < 0.20:
-	#	add_apple(apple_reverse_scene, "eaten_reverse")
-	#	reverse_spawned = true
+	if not poison_spawned and randf() < 0.20:
+		add_apple(apple_reverse_scene, "eaten_reverse")
+		reverse_spawned = true
 	
 	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
@@ -162,10 +162,12 @@ func _on_apple_eaten_regular():
 
 func _on_apple_eaten_poison():
 	update_score(-1)
+	modifier_manager._on_apple_eaten()
 	snake.ate_poison_apple()
 
 func _on_apple_eaten_rain():
 	update_score(1)
+	modifier_manager._on_apple_eaten()
 	if randf() < 0.25:
 		for i in range(5):
 			add_apple(apple_rain_child_scene, "eaten_rain_child")
@@ -178,12 +180,14 @@ func _on_apple_eaten_rain():
 
 func _on_apple_eaten_rain_child():
 	update_score(1)
+	modifier_manager._on_apple_eaten()
 	
 	xp += 1
 	snake.ate_regular_apple(extra_growth)
 
 func _on_apple_eaten_reverse():
 	update_score(1)
+	modifier_manager._on_apple_eaten()
 	snake.reverse_snake()
 	
 	xp += 1
@@ -227,16 +231,6 @@ func on_level_up(option1: Modifier, option2: Modifier) -> void:
 	xp = 0
 	get_tree().paused = true
 	select_menu.show()
-
-func level_stat(stat):
-	if stat == "Speed Up":
-		timer.wait_time -= 0.05
-	if stat == "Speed Down":
-		timer.wait_time += 0.05
-	if stat == "Bonus Score":
-		update_score(10)
-	if stat == "Score Multiply":
-		score_multiply += 1
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:

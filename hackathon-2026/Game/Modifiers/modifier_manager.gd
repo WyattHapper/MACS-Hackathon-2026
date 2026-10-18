@@ -60,8 +60,6 @@ func _on_apple_eaten():
 	for modifier in active_modifiers.duplicate():
 		modifier.on_apple_eaten(game)
 
-
-
 # Remove every active modifier and reset the run.
 func reset_run() -> void:
 	for modifier in active_modifiers.duplicate():

@@ -19,8 +19,8 @@ config/icon="res://Theme/icon.svg"
 
 window/size/viewport_width=800
 window/size/viewport_height=540
+window/size/resizable=false
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [dotnet]
 
