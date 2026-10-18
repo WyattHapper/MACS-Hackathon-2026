@@ -7,7 +7,7 @@ extends Node2D
 
 ### VARIABLES
 
-var options = ["Speed Up", "Speed Down"]
+var options = ["Speed Up", "Speed Down", "Bonus Score", "Score Multiply"]
 var option1_stat
 var option2_stat
 
@@ -34,6 +34,7 @@ var xp: int = 0
 
 # General game variables
 var score: int
+var score_multiply = 1
 var game_started: bool = false
 @export var cell_size: int = 50
 @export var top_ui_height: int = 40
@@ -185,7 +186,10 @@ func _on_apple_eaten_reverse():
 	snake.ate_regular_apple()
 
 func update_score(amount: int):
-	score += amount
+	if amount > 0:
+		score += (amount * score_multiply)
+	else:
+		score += amount
 	$UI.get_node("Score").text = "Score: " + str(score)
 
 func get_random_position() -> Vector2:
@@ -224,6 +228,10 @@ func level_stat(stat):
 		timer.wait_time -= 0.05
 	if stat == "Speed Down":
 		timer.wait_time += 0.05
+	if stat == "Bonus Score":
+		update_score(10)
+	if stat == "Score Multiply":
+		score_multiply += 1
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
