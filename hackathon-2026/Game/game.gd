@@ -122,6 +122,7 @@ func _on_apple_eaten_regular():
 	
 	var poison_spawned = false
 	var reverse_spawned = false
+	var rain_spawned = false
 	
 	if randf() < 0.20:
 		add_apple(apple_poison_scene, "eaten_poison")
@@ -133,6 +134,10 @@ func _on_apple_eaten_regular():
 	
 	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
+		rain_spawned = true
+	
+	if not rain_spawned and randf() < 0.06:
+		add_apple(brick_scene, "", "snake_collide")
 	
 	xp += 1
 	snake.ate_regular_apple()
