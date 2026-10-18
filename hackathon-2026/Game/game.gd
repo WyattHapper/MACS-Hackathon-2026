@@ -50,13 +50,19 @@ func _process(_delta):
 ### GAME START
 # Resets score, move_dir, can_move, and makes the snake
 func new_game():
+	for item in get_tree().get_nodes_in_group("item"):
+		item.queue_free()
+		
 	get_tree().paused = false
+	
 	game_over_menu.hide()
 	pause_menu.hide()
 	select_menu.hide()
+	
 	score = 0
-	$UI.get_node("Score").text = "Score: " + str(score)
+	update_score(0)
 	make_snake()
+	
 	add_apple(apple_regular_scene, "eaten_regular")
 	
 	add_apple(brick_scene, "", "snake_collide")
