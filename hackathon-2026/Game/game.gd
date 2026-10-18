@@ -53,7 +53,7 @@ func new_game():
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
-	add_regular_apple()
+	add_apple(apple_regular_scene, "eaten_regular")
 	start_game()
 
 # Clears snake data and makes a new snake
@@ -61,97 +61,59 @@ func make_snake():
 	snake.InitializeSnake()
 
 ### APPLES
-func add_regular_apple():
-	var regular_apple = apple_regular_scene.instantiate()
-	
-	var flag = false #loops until it finds a position thats not inside the snake
-	while (!flag):
-		flag = true
-		regular_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
-		for cell in snake.snake_cells:
-			if regular_apple.position == cell.position:
-				flag = false
-				
-	regular_apple.eaten_regular.connect(_on_apple_eaten_regular)
-	add_child.call_deferred(regular_apple)
+func add_apple(apple_scene: PackedScene, eaten_signal: String):
+	var apple = apple_scene.instantiate()
+	place_apple(apple)
+	apple.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
+	add_child.call_deferred(apple)
 
-func add_poison_apple():
-	var poison_apple = apple_poison_scene.instantiate()
-	
+func place_apple(apple):
 	var flag = false #loops until it finds a position thats not inside the snake
 	while (!flag):
 		flag = true
-		poison_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
+		apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
 		for cell in snake.snake_cells:
-			if poison_apple.position == cell.position:
+			if apple.position == cell.position:
 				flag = false
-				
-	poison_apple.eaten_poison.connect(_on_apple_eaten_poison)
-	add_child.call_deferred(poison_apple)
-	
-func add_rain_apple():
-	var rain_apple = apple_rain_scene.instantiate()
-	
-	var flag = false #loops until it finds a position thats not inside the snake
-	while (!flag):
-		flag = true
-		rain_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
-		for cell in snake.snake_cells:
-			if rain_apple.position == cell.position:
-				flag = false
-				
-	rain_apple.eaten_rain.connect(_on_apple_eaten_rain)
-	add_child.call_deferred(rain_apple)
-	
-func add_rain_child_apple():
-	var rain_child_apple = apple_rain_child_scene.instantiate()
-	
-	var flag = false #loops until it finds a position thats not inside the snake
-	while (!flag):
-		flag = true
-		rain_child_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
-		for cell in snake.snake_cells:
-			if rain_child_apple.position == cell.position:
-				flag = false
-				
-	rain_child_apple.eaten_rain_child.connect(_on_apple_eaten_rain_child)
-	add_child.call_deferred(rain_child_apple)
 
 func _on_apple_eaten_regular():
-	score += 1
-	$UI.get_node("Score").text = "Score: " + str(score)
-	add_regular_apple()
-	if randf() < 0.25:
-		add_poison_apple()
-	elif randf() < 0.25:
-		add_rain_apple()
+	update_score(1)
+	add_apple(apple_regular_scene, "eaten_regular")
+	
+	var poison_spawned = false
+	
+	if randf() < 0.20:
+		add_apple(apple_poison_scene, "eaten_poison")
+		poison_spawned = true
+	
+	if not poison_spawned and randf() < 0.10:
+		add_apple(apple_rain_scene, "eaten_rain")
+	
 	snake.ate_regular_apple()
 	snake.reverse_snake()
 
 func _on_apple_eaten_poison():
-	score -= 1
-	$UI.get_node("Score").text = "Score: " + str(score)
+	update_score(-1)
 	snake.ate_poison_apple()
 
 func _on_apple_eaten_rain():
-	score += 1
+	update_score(1)
 	if randf() < 0.25:
-		add_rain_child_apple()
-		add_rain_child_apple()
-		add_rain_child_apple()
-		add_rain_child_apple()
-		add_rain_child_apple()
+		for i in range(5):
+			add_apple(apple_rain_child_scene, "eaten_rain_child")
 	else:
-		add_rain_child_apple()
-		add_rain_child_apple()
-		add_rain_child_apple()
-	$UI.get_node("Score").text = "Score: " + str(score)
+		for i in range(3):
+			add_apple(apple_rain_child_scene, "eaten_rain_child")
+
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_rain_child():
-	score += 1
-	$UI.get_node("Score").text = "Score: " + str(score)
+	update_score(1)
 	snake.ate_regular_apple()
+
+func update_score(amount: int):
+	score += amount
+	$UI.get_node("Score").text = "Score: " + str(score)
 
 func get_random_position() -> Vector2:
 	var random_x = randi_range(0, grid_width - 1)
