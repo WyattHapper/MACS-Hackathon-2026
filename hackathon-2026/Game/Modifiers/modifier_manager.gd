@@ -48,8 +48,10 @@ func activate_modifier(modifier: Modifier) -> void:
 
 	if modifier in active_modifiers:
 		return
-
-	active_modifiers.append(modifier)
+	
+	if modifier not in repeatable_modifiers:
+		active_modifiers.append(modifier)
+		
 	modifier.apply(game)
 
 

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ReverseModifier" format=3 uid="uid://cndfbtqm43a4"]
-
-[ext_resource type="Script" uid="uid://bbausae78n1b4" path="res://Game/Modifiers/reverse_modifier.gd" id="1_0r1fk"]
-
-[resource]
-script = ExtResource("1_0r1fk")
-modifier_name = "Reverse"
-description = "Reverse each time you eat an apple"
-metadata/_custom_type_script = "uid://bbausae78n1b4"

@@ -135,6 +135,7 @@ func _on_apple_eaten_regular():
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
 
+	#disabled spawning reverse apples since its in modifiers
 	#if not poison_spawned and randf() < 0.20:
 	#	add_apple(apple_reverse_scene, "eaten_reverse")
 	#	reverse_spawned = true
@@ -257,3 +258,7 @@ func _increase_snake_speed() -> void:
 
 func _decrease_snake_speed() ->void:
 	timer.wait_time += 0.025
+
+func _shuffle() -> void:
+	for item in get_tree().get_nodes_in_group("item"):
+		place_apple(item)
