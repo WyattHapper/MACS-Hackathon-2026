@@ -88,6 +88,34 @@ func add_poison_apple():
 				
 	poison_apple.eaten_poison.connect(_on_apple_eaten_poison)
 	add_child.call_deferred(poison_apple)
+	
+func add_rain_apple():
+	var rain_apple = apple_rain_scene.instantiate()
+	
+	var flag = false #loops until it finds a position thats not inside the snake
+	while (!flag):
+		flag = true
+		rain_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
+		for cell in snake.snake_cells:
+			if rain_apple.position == cell.position:
+				flag = false
+				
+	rain_apple.eaten_rain.connect(_on_apple_eaten_rain)
+	add_child.call_deferred(rain_apple)
+	
+func add_rain_child_apple():
+	var rain_child_apple = apple_rain_child_scene.instantiate()
+	
+	var flag = false #loops until it finds a position thats not inside the snake
+	while (!flag):
+		flag = true
+		rain_child_apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
+		for cell in snake.snake_cells:
+			if rain_child_apple.position == cell.position:
+				flag = false
+				
+	rain_child_apple.eaten_rain_child.connect(_on_apple_eaten_rain_child)
+	add_child.call_deferred(rain_child_apple)
 
 func _on_apple_eaten_regular():
 	score += 1
@@ -95,6 +123,8 @@ func _on_apple_eaten_regular():
 	add_regular_apple()
 	if randf() < 0.25:
 		add_poison_apple()
+	elif randf() < 0.25:
+		add_rain_apple()
 	snake.ate_regular_apple()
 	snake.reverse_snake()
 
@@ -102,6 +132,26 @@ func _on_apple_eaten_poison():
 	score -= 1
 	$UI.get_node("Score").text = "Score: " + str(score)
 	snake.ate_poison_apple()
+
+func _on_apple_eaten_rain():
+	score += 1
+	if randf() < 0.25:
+		add_rain_child_apple()
+		add_rain_child_apple()
+		add_rain_child_apple()
+		add_rain_child_apple()
+		add_rain_child_apple()
+	else:
+		add_rain_child_apple()
+		add_rain_child_apple()
+		add_rain_child_apple()
+	$UI.get_node("Score").text = "Score: " + str(score)
+	snake.ate_regular_apple()
+
+func _on_apple_eaten_rain_child():
+	score += 1
+	$UI.get_node("Score").text = "Score: " + str(score)
+	snake.ate_regular_apple()
 
 func get_random_position() -> Vector2:
 	var random_x = randi_range(0, grid_width - 1)

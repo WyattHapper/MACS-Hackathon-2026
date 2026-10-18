@@ -5,7 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://sgh4qoygpaqc" path="res://Snake/snake_cell.tscn" id="2_7raqb"]
 [ext_resource type="PackedScene" uid="uid://fjvabs66t8xh" path="res://Apples/apple_regular.tscn" id="3_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dk7y855eqgl62" path="res://Apples/apple_poison.tscn" id="3_oomkl"]
+[ext_resource type="PackedScene" uid="uid://bcvxepqdbiyoe" path="res://Apples/apple_rain.tscn" id="4_buohc"]
 [ext_resource type="Script" uid="uid://dmxkvwhtwa3cp" path="res://Snake/snake_script.gd" id="4_jcm6v"]
+[ext_resource type="PackedScene" uid="uid://bxn6tjk644jeg" path="res://Apples/apple_rain_child.tscn" id="5_kul4i"]
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="6_qmv3x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64tlk"]
@@ -18,6 +20,8 @@ bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
 script = ExtResource("1_bk3v5")
 apple_regular_scene = ExtResource("3_jcm6v")
 apple_poison_scene = ExtResource("3_oomkl")
+apple_rain_scene = ExtResource("4_buohc")
+apple_rain_child_scene = ExtResource("5_kul4i")
 
 [node name="Panel" type="Panel" parent="." unique_id=540144919]
 offset_right = 800.0
@@ -170,6 +174,7 @@ text = "Menu"
 
 [node name="SelectMenu" type="Control" parent="." unique_id=1928684803]
 process_mode = 3
+visible = false
 z_index = 5
 layout_mode = 3
 anchors_preset = 8
