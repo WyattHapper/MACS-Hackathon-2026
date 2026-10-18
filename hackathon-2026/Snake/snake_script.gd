@@ -95,7 +95,7 @@ func add_cell(pos):
 	snake_cells.push_front(snake_cell)
 
 func _on_snake_collide():
-	pass
+	game.game_over()
 
 func ate_apple() -> void:
 	just_ate = true;

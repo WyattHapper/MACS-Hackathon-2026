@@ -23,12 +23,17 @@ var game_started: bool = false
 #Snake reference
 @onready var snake = $Snake
 
+# End menu reference
+@onready var game_over_menu: Control = $PopupMenu
+
 # Built in function to run on start
 func _ready():
 	new_game()
 
 # Resets score, move_dir, can_move, and makes the snake
 func new_game():
+	get_tree().paused = false
+	game_over_menu.hide()
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
@@ -78,3 +83,18 @@ func get_random_position() -> Vector2:
 	var random_x = randi_range(0, grid_width - 1)
 	var random_y = randi_range(0, grid_height -1)
 	return Vector2(random_x, random_y)
+
+func game_over():
+	game_started = false
+	get_tree().paused = true
+	game_over_menu.show()
+
+# Game over pop-up buttons
+
+func _on_menu_button_pressed() -> void:
+	print("test")
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://MainMenu/main_menu.tscn")
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

@@ -3,10 +3,19 @@
 [ext_resource type="Script" uid="uid://b6xuggf1ahikr" path="res://MainMenu/main_menu.gd" id="1_nhkf3"]
 [ext_resource type="Theme" uid="uid://256tali8hvkb" path="res://Theme/snake_theme.tres" id="2_3w4mj"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygop"]
+bg_color = Color(0, 0.35686275, 0, 1)
+
 [node name="Main Menu" type="Control" unique_id=1497900963]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_nhkf3")
+
+[node name="Panel" type="Panel" parent="." unique_id=769976363]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 540.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
 
 [node name="Control" type="Control" parent="." unique_id=1971470459]
 anchors_preset = 0
@@ -16,27 +25,27 @@ offset_bottom = 40.0
 [node name="Start Button" type="Button" parent="Control" unique_id=1483774150]
 layout_mode = 0
 offset_left = 262.5
-offset_top = 70.0
+offset_top = 100.0
 offset_right = 537.5
-offset_bottom = 135.0
+offset_bottom = 165.0
 theme = ExtResource("2_3w4mj")
 text = "Start"
 
 [node name="Settings Button" type="Button" parent="Control" unique_id=1654204579]
 layout_mode = 0
 offset_left = 262.5
-offset_top = 200.0
+offset_top = 230.0
 offset_right = 537.5
-offset_bottom = 265.0
+offset_bottom = 295.0
 theme = ExtResource("2_3w4mj")
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="Control" unique_id=1755264777]
 layout_mode = 0
 offset_left = 262.5
-offset_top = 330.0
+offset_top = 360.0
 offset_right = 537.5
-offset_bottom = 395.0
+offset_bottom = 425.0
 theme = ExtResource("2_3w4mj")
 text = "Quit"
 
