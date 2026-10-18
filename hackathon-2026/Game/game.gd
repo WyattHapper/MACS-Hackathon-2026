@@ -221,9 +221,9 @@ func on_level_up(option1, option2):
 	
 func level_stat(stat):
 	if stat == "Speed Up":
-		pass
+		timer.wait_time -= 0.05
 	if stat == "Speed Down":
-		pass
+		timer.wait_time += 0.05
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
