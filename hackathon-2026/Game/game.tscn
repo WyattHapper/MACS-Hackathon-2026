@@ -22,13 +22,13 @@ bg_color = Color(0, 0.35686275, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mygop"]
 bg_color = Color(0.11764706, 0.49019608, 0.6, 1)
 
-[sub_resource type="Resource" id="Resource_7gi1t"]
-script = ExtResource("12_4lqr4")
-metadata/_custom_type_script = "uid://dhauhga8lybmo"
-
 [sub_resource type="Resource" id="Resource_fsxsm"]
 script = ExtResource("13_qlwvw")
 metadata/_custom_type_script = "uid://bbausae78n1b4"
+
+[sub_resource type="Resource" id="Resource_qlwvw"]
+script = ExtResource("12_4lqr4")
+metadata/_custom_type_script = "uid://dhauhga8lybmo"
 
 [node name="Game" type="Node2D" unique_id=872899055]
 script = ExtResource("1_bk3v5")
@@ -262,7 +262,8 @@ wait_time = 0.2
 
 [node name="ModifierManager" type="Node2D" parent="." unique_id=1760260064]
 script = ExtResource("10_7gi1t")
-available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_7gi1t"), SubResource("Resource_fsxsm")])
+available_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_fsxsm")])
+repeatable_modifiers = Array[ExtResource("11_72g0p")]([SubResource("Resource_qlwvw")])
 
 [connection signal="pressed" from="GameOverMenu/Menu Button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]

@@ -1,19 +1,20 @@
 extends Node2D
 class_name ModifierManager
 
-# Assign your .tres modifier resources in the Inspector.
 @export var available_modifiers: Array[Modifier] = []
+@export var repeatable_modifiers: Array[Modifier] = []
 var active_modifiers: Array[Modifier] = []
 var game: Node2D
 
 
 # Called by GameController when the game initializes.
-func initialize(game_controller: Node2D) -> void:
+func initialize(game_controller: Node2D):
 	game = game_controller
 
 
 # Pick two distinct modifiers that the player does not already have.
 func get_random_choices() -> Array[Modifier]:
+	print("Available modifiers: ", available_modifiers.size())
 	var choices: Array[Modifier] = []
 
 	# exclude already-active modifiers
@@ -25,6 +26,11 @@ func get_random_choices() -> Array[Modifier]:
 
 		if modifier not in active_modifiers:
 			candidates.append(modifier)
+	
+	for modifier in repeatable_modifiers:
+		if modifier == null:
+			continue
+		candidates.append(modifier)
 
 	# Shuffle so the choices are random.
 	candidates.shuffle()

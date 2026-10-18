@@ -6,10 +6,9 @@ extends Node2D
 # Nathan - Cleaning up snake's code and moving it to separate snake_script
 
 ### VARIABLES
-
-var options = ["Speed Up", "Speed Down"]
-var option1_stat
-var option2_stat
+var options: Array[Modifier] = []
+var option1_stat: Modifier
+var option2_stat: Modifier
 
 var xp: int = 0
 
@@ -42,7 +41,7 @@ var game_started: bool = false
 @onready var snake = $Snake
 
 #Modifiers reference
-@onready var modifier_manager: ModifierManager = $Modifiers/ModifierManager
+@onready var modifier_manager: ModifierManager = $ModifierManager
 
 # End menu reference
 @onready var game_over_menu: Control = $GameOverMenu
@@ -52,18 +51,16 @@ var game_started: bool = false
 ### BUILT INS
 # Built in function to run on start
 func _ready():
-	
+	modifier_manager.initialize(self)
 	new_game()
-	modifier_manager = ModifierManager.new()
-	modifier_manager.game = self
 # Built in function to process stuff continually
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = true
 		pause_menu.show()
 	
-	if xp >= 10:
-		options.shuffle()
+	if xp >= 2:
+		options = modifier_manager.get_random_choices()
 		var option1 = options[0]
 		var option2 = options[1]
 		on_level_up(option1, option2)
@@ -205,21 +202,16 @@ func game_over():
 	get_tree().paused = true
 	game_over_menu.show()
 
-func on_level_up(option1, option2):
-	select_menu.get_node("Option1 Button").text = "" + str(option1)
-	select_menu.get_node("Option2 Button").text = "" + str(option2)
+func on_level_up(option1: Modifier, option2: Modifier) -> void:
 	option1_stat = option1
 	option2_stat = option2
-	
+
+	select_menu.get_node("Option1 Button").text = option1.modifier_name
+	select_menu.get_node("Option2 Button").text = option2.modifier_name
+
 	xp = 0
 	get_tree().paused = true
 	select_menu.show()
-	
-func level_stat(stat):
-	if stat == "Speed Up":
-		pass
-	if stat == "Speed Down":
-		pass
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
@@ -235,12 +227,12 @@ func _on_resume_button_pressed() -> void:
 	pause_menu.hide()
 
 func _on_option_1_button_pressed() -> void:
-	level_stat(option1_stat)
+	modifier_manager.activate_modifier(option1_stat)
 	get_tree().paused = false
 	select_menu.hide()
 
 func _on_option_2_button_pressed() -> void:
-	level_stat(option2_stat)
+	modifier_manager.activate_modifier(option2_stat)
 	get_tree().paused = false
 	select_menu.hide()
 	
