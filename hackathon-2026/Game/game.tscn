@@ -101,6 +101,7 @@ text = "Quit"
 
 [node name="PauseMenu" type="Control" parent="." unique_id=952514968]
 process_mode = 3
+visible = false
 z_index = 5
 layout_mode = 3
 anchors_preset = 8
@@ -167,6 +168,74 @@ grow_vertical = 0
 theme = ExtResource("6_qmv3x")
 text = "Menu"
 
+[node name="SelectMenu" type="Control" parent="." unique_id=1928684803]
+process_mode = 3
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="Panel" type="Panel" parent="SelectMenu" unique_id=1219939181]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mygop")
+
+[node name="Label" type="Label" parent="SelectMenu" unique_id=1792117370]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Select an upgrade"
+
+[node name="Option1 Button" type="Button" parent="SelectMenu" unique_id=16215649]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.5
+offset_top = 100.0
+offset_right = 137.5
+offset_bottom = 165.0
+grow_horizontal = 2
+theme = ExtResource("6_qmv3x")
+text = "Option 1"
+
+[node name="Option2 Button" type="Button" parent="SelectMenu" unique_id=966884212]
+custom_minimum_size = Vector2(275, 65)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -100.0
+offset_right = 137.5
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_qmv3x")
+text = "Option 2"
+
 [node name="Timer" type="Timer" parent="." unique_id=628841116]
 wait_time = 0.2
 
@@ -174,4 +243,6 @@ wait_time = 0.2
 [connection signal="pressed" from="GameOverMenu/Quit Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="PauseMenu/Resume Button" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenu/Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="SelectMenu/Option1 Button" to="." method="_on_option_1_button_pressed"]
+[connection signal="pressed" from="SelectMenu/Option2 Button" to="." method="_on_option_2_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

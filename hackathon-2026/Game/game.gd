@@ -6,6 +6,10 @@ extends Node2D
 # Nathan - Cleaning up snake's code and moving it to separate snake_script
 
 ### VARIABLES
+
+var option1_stat
+var option2_stat
+
 # Exporting snake cell variable to inspector for ease of use
 @export var apple_regular_scene: PackedScene
 @export var apple_poison_scene: PackedScene
@@ -26,6 +30,7 @@ var game_started: bool = false
 # End menu reference
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var pause_menu: Control = $PauseMenu
+@onready var select_menu: Control = $SelectMenu
 
 ### BUILT INS
 # Built in function to run on start
@@ -44,6 +49,7 @@ func new_game():
 	get_tree().paused = false
 	game_over_menu.hide()
 	pause_menu.hide()
+	select_menu.hide()
 	score = 0
 	$UI.get_node("Score").text = "Score: " + str(score)
 	make_snake()
@@ -118,6 +124,18 @@ func game_over():
 	get_tree().paused = true
 	game_over_menu.show()
 
+func on_level_up(option1, option2):
+	pause_menu.get_node("Option1 Button").text = "" + str(option1)
+	pause_menu.get_node("Option2 Button").text = "" + str(option2)
+	option1_stat = 0
+	option1_stat = 0
+	get_tree().paused = true
+	select_menu.show()
+	
+func level_stat(stat):
+	print(stat)
+	pass # Change stats here
+
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:
 	print("test")
@@ -130,3 +148,13 @@ func _on_quit_button_pressed() -> void:
 func _on_resume_button_pressed() -> void:
 	get_tree().paused = false
 	pause_menu.hide()
+
+func _on_option_1_button_pressed() -> void:
+	level_stat(option1_stat)
+	get_tree().paused = false
+	select_menu.hide()
+
+func _on_option_2_button_pressed() -> void:
+	level_stat(option2_stat)
+	get_tree().paused = false
+	select_menu.hide()
