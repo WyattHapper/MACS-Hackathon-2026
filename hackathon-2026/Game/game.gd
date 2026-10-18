@@ -193,8 +193,8 @@ func game_over():
 	game_over_menu.show()
 
 func on_level_up(option1, option2):
-	pause_menu.get_node("Option1 Button").text = "" + str(option1)
-	pause_menu.get_node("Option2 Button").text = "" + str(option2)
+	select_menu.get_node("Option1 Button").text = "" + str(option1)
+	select_menu.get_node("Option2 Button").text = "" + str(option2)
 	option1_stat = option1
 	option2_stat = option2
 	
