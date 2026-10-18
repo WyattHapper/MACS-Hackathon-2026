@@ -7,14 +7,21 @@ extends Node2D
 
 ### VARIABLES
 
+var options = ["Speed Up", "Speed Down"]
 var option1_stat
 var option2_stat
 
+var xp: int = 0
+
 # Exporting snake cell variable to inspector for ease of use
+@export var brick_scene: PackedScene
+
 @export var apple_regular_scene: PackedScene
 @export var apple_poison_scene: PackedScene
 @export var apple_rain_scene: PackedScene
 @export var apple_rain_child_scene: PackedScene
+@export var apple_reverse_scene: PackedScene
+
 @export var grid_width: int = 16
 @export var grid_height: int = 10
 
@@ -54,18 +61,34 @@ func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = true
 		pause_menu.show()
+	
+	if xp == 10:
+		options.shuffle()
+		var option1 = options[0]
+		var option2 = options[1]
+		on_level_up(option1, option2)
 
 ### GAME START
 # Resets score, move_dir, can_move, and makes the snake
 func new_game():
+	for item in get_tree().get_nodes_in_group("item"):
+		item.queue_free()
+		
 	get_tree().paused = false
+	
 	game_over_menu.hide()
 	pause_menu.hide()
 	select_menu.hide()
+	
 	score = 0
-	$UI.get_node("Score").text = "Score: " + str(score)
+	xp = 0
+	update_score(0)
 	make_snake()
+	
 	add_apple(apple_regular_scene, "eaten_regular")
+	
+	add_apple(brick_scene, "", "snake_collide")
+	
 	start_game()
 
 # Clears snake data and makes a new snake
@@ -73,21 +96,37 @@ func make_snake():
 	snake.InitializeSnake()
 
 ### APPLES
-func add_apple(apple_scene: PackedScene, eaten_signal: String):
-	var apple = apple_scene.instantiate()
-	place_apple(apple)
-	apple.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
+func add_apple(apple_scene: PackedScene, eaten_signal: String = "", collision_signal: String = ""):
+	var item = apple_scene.instantiate()
+	place_apple(item)
+
+	if eaten_signal != "":
+		item.connect(eaten_signal, Callable(self, "_on_apple_eaten_" + eaten_signal.trim_prefix("eaten_")))
+
+	if collision_signal != "":
+		item.connect(collision_signal, Callable(snake, "_on_snake_collide"))
 	
-	add_child.call_deferred(apple)
+	item.add_to_group("item")
+	add_child.call_deferred(item)
 
 func place_apple(apple):
 	var flag = false #loops until it finds a position thats not inside the snake
 	while (!flag):
 		flag = true
 		apple.position = (get_random_position() * cell_size) + Vector2(0, top_ui_height)
+		
+		# Snake cells
 		for cell in snake.snake_cells:
 			if apple.position == cell.position:
 				flag = false
+				break
+		
+		# Items
+		if flag:
+			for item in get_tree().get_nodes_in_group("item"):
+				if apple.position == item.position:
+					flag = false
+					break
 
 func _on_apple_eaten_regular():
 	update_score(1)
@@ -95,14 +134,20 @@ func _on_apple_eaten_regular():
 	modifier_manager._on_apple_eaten()
 	
 	var poison_spawned = false
+	var reverse_spawned = false
 	
 	if randf() < 0.20:
 		add_apple(apple_poison_scene, "eaten_poison")
 		poison_spawned = true
+
+	if not poison_spawned and randf() < 0.20:
+		add_apple(apple_reverse_scene, "eaten_reverse")
+		reverse_spawned = true
 	
-	if not poison_spawned and randf() < 0.90:
+	if not reverse_spawned and randf() < 0.10:
 		add_apple(apple_rain_scene, "eaten_rain")
 	
+	xp += 1
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_poison():
@@ -117,11 +162,21 @@ func _on_apple_eaten_rain():
 	else:
 		for i in range(3):
 			add_apple(apple_rain_child_scene, "eaten_rain_child")
-	modifier_manager._on_apple_eaten()
+	
+	xp += 1
 	snake.ate_regular_apple()
 
 func _on_apple_eaten_rain_child():
 	update_score(1)
+	
+	xp += 1
+	snake.ate_regular_apple()
+
+func _on_apple_eaten_reverse():
+	update_score(1)
+	snake.reverse_snake()
+	
+	xp += 1
 	snake.ate_regular_apple()
 
 func update_score(amount: int):
@@ -151,16 +206,20 @@ func game_over():
 	game_over_menu.show()
 
 func on_level_up(option1, option2):
-	pause_menu.get_node("Option1 Button").text = "" + str(option1)
-	pause_menu.get_node("Option2 Button").text = "" + str(option2)
-	option1_stat = 0
-	option2_stat = 0
+	select_menu.get_node("Option1 Button").text = "" + str(option1)
+	select_menu.get_node("Option2 Button").text = "" + str(option2)
+	option1_stat = option1
+	option2_stat = option2
+	
+	xp = 0
 	get_tree().paused = true
 	select_menu.show()
 	
 func level_stat(stat):
-	print(stat)
-	pass # Change stats here
+	if stat == "Speed Up":
+		pass
+	if stat == "Speed Down":
+		pass
 
 ### MENU BUTTONS
 func _on_menu_button_pressed() -> void:

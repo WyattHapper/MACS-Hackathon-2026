@@ -1,5 +1,7 @@
 extends Node
 
+@export var brick_scene: PackedScene
+
 # Snake data
 var snake: Array #positions from 0 to grid size counting by 1
 var snake_cells: Array # the snake cells with scale
